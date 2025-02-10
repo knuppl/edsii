@@ -103,6 +103,7 @@ DROP TABLE IF EXISTS `pid`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pid` (
   `id` varchar(100) NOT NULL,
+  `semestre` varchar(100) NOT NULL, 
   `siape_docente` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_siape_pid` (`siape_docente`),
