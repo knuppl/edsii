@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS `pid`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pid` (
-  `id` varchar(100) NOT NULL,
+  `id` varchar(100) NOT NULL AUTO_INCREMENT,
   `semestre` varchar(100) NOT NULL, 
   `siape_docente` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -154,7 +154,8 @@ DROP TABLE IF EXISTS `rid`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rid` (
-  `id` varchar(100) NOT NULL,
+  `id` varchar(100) NOT NULL AUTO_INCREMENT,
+  `semestre` varchar(100) not null,
   `siape_docente` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_siape_rid` (`siape_docente`),
