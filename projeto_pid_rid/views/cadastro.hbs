@@ -22,22 +22,27 @@
                         <input type="email" class="form-control" id="email" required>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="senha" class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" required>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="senha" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="tipoServidor" class="form-label">Tipo de Servidor</label>
+                        <select class="form-control" id="tipoServidor" required>
+                            <option value="">Selecione</option>
+                            <option value="Efetivo">Efetivo</option>
+                            <option value="Substituto">Substituto</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Regime de Trabalho</label>
-                    <div class="d-flex gap-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="regime" id="20h" value="20" required>
-                            <label class="form-check-label" for="20h">20 horas</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="regime" id="40h" value="40" required>
-                            <label class="form-check-label" for="40h">40 horas</label>
-                        </div>
-                    </div>
+                    <label for="regime" class="form-label">Regime de Trabalho</label>
+                    <select class="form-control" id="regime" required>
+                        <option value="">Selecione</option>
+                        <option value="20">20 horas</option>
+                        <option value="40">40 horas</option>
+                    </select>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
