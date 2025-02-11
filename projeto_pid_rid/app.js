@@ -26,6 +26,10 @@ app.get('/cadastrarPid', function(req, res) {
   res.render('cadastrarPid');
 });
 
+app.get('/cadastrar', function(req, res) {
+  res.render('cadastro');
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

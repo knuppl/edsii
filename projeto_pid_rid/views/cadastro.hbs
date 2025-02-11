@@ -1,0 +1,47 @@
+<div class="container mt-5">
+        <div class="card shadow p-4">
+            <h2 class="mb-4 text-center">Cadastro</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="nome" class="form-label">Nome Completo</label>
+                        <input type="text" class="form-control" id="nome" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="cpf" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="siape" class="form-label">SIAPE</label>
+                        <input type="text" class="form-control" id="siape" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="senha" class="form-label">Senha</label>
+                    <input type="password" class="form-control" id="senha" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Regime de Trabalho</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="regime" id="20h" value="20" required>
+                            <label class="form-check-label" for="20h">20 horas</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="regime" id="40h" value="40" required>
+                            <label class="form-check-label" for="40h">40 horas</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
