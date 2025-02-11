@@ -1,56 +1,97 @@
-<h2>Criação de PID</h2>
-<form method="post" action="/projeto_pid_rid/newpid">
-    <div class="row">
-        <div class="col-md-8">
-            <label for="semestre" class="form-label">Semestre letivo</label>
-            <input type="text" class="form-control" id="semestre" name="semestre" placeholder="Digite o semestre do ano..." required/>
-        </div>
-    </div>
-
-    <div id="atividades-container" class="mt-3">
-        <div class="row">
-            <div class="col-md-8">
-                <label for="atividade" class="form-label">Atividade</label>
-                <input type="text" class="form-control" id="atividade" name="atividades[]" placeholder="Digite a atividade..." required/>
+<div class="container mt-5">
+    <div class="card shadow p-4 mx-auto">
+        <h2 class="text-center mb-4">Criação de PID</h2>
+        <form method="post" action="/projeto_pid_rid/newpid">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="ano" class="form-label">Ano Letivo</label>
+                    <input type="number" class="form-control" id="ano" name="ano" placeholder="Digite o ano letivo..." required />
+                </div>
+                <div class="col-md-6">
+                    <label for="semestre" class="form-label">Semestre Letivo</label>
+                    <select class="form-control" id="semestre" name="semestre" required>
+                        <option value="">Selecione o semestre...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-8">
-                <label for="ch-1" class="form-label">Carga Horária</label>
-                <input type="number" class="form-control" id="ch" name="carga_horaria[]" placeholder="Digite a carga horária..." required/>
+            <div id="atividades-container">
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <label for="tipo-atividade" class="form-label">Tipo de atividade</label>
+                        <select class="form-control" id="tipo-atividade" name="tipo-atividade[]" required>
+                            <option value="">Selecione o tipo de atividade...</option>
+                            <option value="disciplinas">Disciplinas</option>
+                            <option value="preparacao-manutencao-ensino">Atividades de Preparação e Manutenção do Ensino</option>
+                            <option value="apoio-ensino">Atividades de Apoio ao Ensino</option>
+                            <option value="orientacao">Atividades de Orientação</option>
+                            <option value="pesquisa-inovacao">Atividades de Pesquisa e Inovação</option>
+                            <option value="extensao">Atividades de Extensão</option>
+                            <option value="gestao-institucional">Atividades de Gestão Institucional e Representações</option>
+                            <option value="qualificacao-capacitacao">Atividades de Qualificação e Capacitação</option>
+                        </select>
+                    </div>
+                        <div class="col-md-4">
+                        <label for="ch" class="form-label">Carga Horária</label>
+                        <input type="number" class="form-control" id="ch" name="carga_horaria[]" placeholder="Digite a carga horária..." required />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="atividade" class="form-label">Atividade</label>
+                        <input type="text" class="form-control" id="atividade" name="atividades[]" placeholder="Digite a atividade..." required />
+                    </div>
+                </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <button type="button" class="btn btn-secondary mt-3" id="add-atividade-btn">
-        + Adicionar Atividade
-    </button>
+            <button type="button" class="btn btn-secondary mb-3" id="add-atividade-btn">
+                + Adicionar Atividade
+            </button>
 
-    <div class="text-center mt-3">
-        <button type="submit" class="btn btn-primary">Enviar</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
     </div>
-</form>
 
 <script>
-    document.getElementById('add-atividade-btn').addEventListener('click', function() {
+    document.getElementById('add-atividade-btn').addEventListener('click', function () {
         const newAtividadeDiv = document.createElement('div');
         newAtividadeDiv.classList.add('mt-3');
         newAtividadeDiv.innerHTML = `
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-md-8">
-                <label for="atividade" class="form-label">Atividade</label>
-                <input type="text" class="form-control" id="atividade" name="atividades[]" placeholder="Digite a atividade..." required/>
-            </div>
+                <label for="tipo-atividade" class="form-label">Tipo de atividade</label>
+                <select class="form-control" id="tipo-atividade" name="tipo-atividade[]" required>
+                    <option value="">Selecione o tipo de atividade...</option>
+                    <option value="disciplinas">Disciplinas</option>
+                    <option value="preparacao-manutencao-ensino">Atividades de Preparação e Manutenção do Ensino</option>
+                    <option value="apoio-ensino">Atividades de Apoio ao Ensino</option>
+                    <option value="orientacao">Atividades de Orientação</option>
+                    <option value="pesquisa-inovacao">Atividades de Pesquisa e Inovação</option>
+                    <option value="extensao">Atividades de Extensão</option>
+                    <option value="gestao-institucional">Atividades de Gestão Institucional e Representações</option>
+                    <option value="qualificacao-capacitacao">Atividades de Qualificação e Capacitação</option>
+                </select>
+                        </div>
+                        <div class="col-md-4">
+                        <label for="ch" class="form-label">Carga Horária</label>
+                        <input type="number" class="form-control" id="ch" name="carga_horaria[]" placeholder="Digite a carga horária..." required />
+                    </div>
+                    </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                <label for="ch" class="form-label">Carga Horária</label>
-                <input type="number" class="form-control" id="ch" name="carga_horaria[]" placeholder="Digite a carga horária..." required/>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label for="atividade" class="form-label">Atividade</label>
+                <input type="text" class="form-control" id="atividade" name="atividades[]" placeholder="Digite a atividade..." required />
             </div>
         </div>
         `;
-        
+
         document.getElementById('atividades-container').appendChild(newAtividadeDiv);
     });
 </script>
