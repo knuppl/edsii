@@ -1,58 +1,82 @@
 import { ObjectId } from "mongodb";
 import { connectDB } from "./database";
-
-interface IDocente {
-    _id: ObjectId; 
-    nome: string;
-    cpf: string;
-    siape: string;
-    email: string;
-    senha: string;
-    tipoServidor: string;
-    regimeTrabalho: number;
-}
-
+import { Docente } from "./Docente";
 
 export class DocenteMongo {
     private collectionName = "docentes"; // Nome da coleção no MongoDB
 
-    async cria(docente: IDocente): Promise<void> {
-        const db = await connectDB();
-        const collection = db.collection(this.collectionName);
-        await collection.insertOne(docente);
+    // Converte um Docente para um formato compatível com MongoDB
+    private static toDBObject(docente: Docente) {
+        return {
+            nome: docente.getNome(),
+            cpf: docente.getCpf(),
+            siape: docente.getSiape(),
+            email: docente.getEmail(),
+            senha: docente.getSenha(),
+            tipoServidor: docente.getTipoServidor(),
+            regimeTrabalho: docente.getRegimeTrabalho()
+        };
     }
 
-    async consulta(id: string): Promise<IDocente | null> {
-        const db = await connectDB();
-        const collection = db.collection(this.collectionName);
-        const docente = await collection.findOne({ _id: new ObjectId(id) });
-        return docente as IDocente | null;
+    // Converte um documento do MongoDB para uma instância de Docente
+    private static fromDBObject(doc: any): Docente {
+        const docente = new Docente();
+        docente.setNome(doc.nome);
+        docente.setCpf(doc.cpf);
+        docente.setSiape(doc.siape);
+        docente.setEmail(doc.email);
+        docente.setSenha(doc.senha);
+        docente.setTipoServidor(doc.tipoServidor);
+        docente.setRegimeTrabalho(doc.regimeTrabalho);
+        return docente;
     }
 
-    async atualiza(id: string, dados: Partial<IDocente>): Promise<void> {
+    async cria(docente: Docente): Promise<void> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
-        await collection.updateOne(
-            { _id: new ObjectId(id) },
-            { $set: dados }
-        );
+        await collection.insertOne(DocenteMongo.toDBObject(docente));
+    }
+
+    async consulta(id: string): Promise<Docente | null> {
+        const db = await connectDB();
+        const collection = db.collection(this.collectionName);
+        const doc = await collection.findOne({ _id: new ObjectId(id) });
+        return doc ? DocenteMongo.fromDBObject(doc) : null;
+    }
+
+    async atualiza(id: string, dados: Partial<Docente>): Promise<void> {
+        const db = await connectDB();
+        const collection = db.collection(this.collectionName);
+        
+        // Converte os dados parciais para um objeto que o MongoDB pode entender
+        const updateData = {
+            ...(dados.getNome && { nome: dados.getNome() }),
+            ...(dados.getCpf && { cpf: dados.getCpf() }),
+            ...(dados.getSiape && { siape: dados.getSiape() }),
+            ...(dados.getEmail && { email: dados.getEmail() }),
+            ...(dados.getSenha && { senha: dados.getSenha() }),
+            ...(dados.getTipoServidor && { tipoServidor: dados.getTipoServidor() }),
+            ...(dados.getRegimeTrabalho && { regimeTrabalho: dados.getRegimeTrabalho() })
+        };
+
+        await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });
     }
 
     async deleta(id: string): Promise<void> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
         const result = await collection.deleteOne({ _id: new ObjectId(id) });
-    
+
         if (result.deletedCount === 0) {
             throw new Error(`Docente com ID ${id} não encontrado.`);
         }
     }
-    
 
-    async lista(): Promise<IDocente[]> {
+    async lista(): Promise<Docente[]> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
-        return await collection.find({}).toArray() as IDocente[];
+        const docs = await collection.find({}).toArray();
+        return docs.map(DocenteMongo.fromDBObject);
     }
 
     async qtd(): Promise<number> {
