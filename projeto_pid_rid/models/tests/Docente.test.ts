@@ -1,8 +1,6 @@
 import { Docente } from "../Docente";
 
-
 let docente: Docente;
-
 
 beforeEach(() => {
     docente = new Docente();
@@ -74,7 +72,6 @@ describe('Siape do Docente', () => {
 
 describe("E-mail do Docente", () => {
 
-
     it('deve ser atribuído', () => {
         docente.setEmail('filipe.fernandes@ifsudestemg.edu.br');
         expect(docente.getEmail()).toBe('filipe.fernandes@ifsudestemg.edu.br');
@@ -108,7 +105,6 @@ describe('Senha do docente', () => {
 
 describe('Tipo de Servidor docente', () => {
 
-
     it('deve ser atribuído', () => {
         docente.setTipoServidor("Efetivo");
         expect(docente.getTipoServidor()).toBe("Efetivo");
@@ -118,11 +114,9 @@ describe('Tipo de Servidor docente', () => {
         expect(docente.getTipoServidor()).toBe("Substituto");
     });
 
-
     it('deve lançar uma exceção quando chamar o getTipoServidor() e this.servidor estiver indefinido', () => {
         expect(() => docente.getTipoServidor()).toThrow(/^O Tipo de Servidor não pode estar indefinido.$/);
     })
-
 
     it('deve lançar uma exceção quando o Tipo de Servidor estiver vazio e quando for diferente de Efetivo ou Substituto', () => {
         expect(() => docente.setTipoServidor('')).toThrow(/^Tipo de Servidor inválido!$/);
@@ -141,7 +135,6 @@ describe("Regime de trabalho do docente", () =>{
         docente.setRegimeTrabalho(20);
         expect(docente.getRegimeTrabalho()).toEqual(20);
     })
-
 
     it('deve lançar uma exceção quando chamar o método get e o atributo estiver indefinido', ()=>{
         expect( ()=>docente.getRegimeTrabalho() ).toThrow(/^O Regime de Trabalho não pode estar indefinido!$/);
