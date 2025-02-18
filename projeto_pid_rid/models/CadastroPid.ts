@@ -3,6 +3,8 @@ export class CadastroPid {
     private ano!: number;
     private semestre!: number;
     private atividades!: { tipo: string; descricao: string; cargaHoraria: number }[];
+    private observacao!: string; // Novo atributo
+
 
     // Getter e Setter para Docente ID
     getDocenteId(): string {
@@ -51,5 +53,16 @@ export class CadastroPid {
             if (atividade.cargaHoraria <= 0) throw new Error("A carga horária deve ser maior que zero!");
         }
         this.atividades = valor;
+    }
+
+     // Getter e Setter para Observação
+     getObservacao(): string {
+        if (this.observacao === undefined) throw new Error("A observação não pode estar indefinida!");
+        return this.observacao;
+    }
+
+    setObservacao(valor: string) {
+        if (valor.trim() === "") throw new Error("A observação não pode estar vazia!");
+        this.observacao = valor.trim();
     }
 }

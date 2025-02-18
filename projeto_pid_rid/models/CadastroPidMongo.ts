@@ -12,6 +12,7 @@ export class CadastroPidMongo {
             ano: pid.getAno(),
             semestre: pid.getSemestre(),
             atividades: pid.getAtividades(),
+            observacao: pid.getObservacao(), // Adicionando a observação
         };
     }
 
@@ -22,6 +23,7 @@ export class CadastroPidMongo {
         pid.setAno(doc.ano);
         pid.setSemestre(doc.semestre);
         pid.setAtividades(doc.atividades);
+        pid.setObservacao(doc.observacao || ""); // Garantindo que a observação não fique indefinida
         return pid;
     }
 
@@ -48,6 +50,7 @@ export class CadastroPidMongo {
             ...(dados.getAno && { ano: dados.getAno() }),
             ...(dados.getSemestre && { semestre: dados.getSemestre() }),
             ...(dados.getAtividades && { atividades: dados.getAtividades() }),
+            ...(dados.getObservacao && { observacao: dados.getObservacao() }), // Adicionando a observação
         };
 
         await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });

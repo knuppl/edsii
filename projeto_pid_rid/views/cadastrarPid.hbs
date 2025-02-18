@@ -100,6 +100,16 @@
                         </button>
                         <div id="lista-qualificacao-capacitacao" class="mt-2"></div>
                     </div>
+
+                    <!-- Nova Seção de Observação -->
+                    <div class="secao-atividade mb-4">
+                        <h3>Observação</h3>
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalObservacao">
+                            + Adicionar Observação
+                        </button>
+                        <div id="exibir-observacao" class="mt-2"></div>
+                    </div>
+
                 </div>
 
                 <div class="text-center">
@@ -162,6 +172,30 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     <button type="button" class="btn btn-primary" onclick="adicionarAtividade()">Adicionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Observação -->
+    <div class="modal fade" id="modalObservacao" tabindex="-1" aria-labelledby="modalObservacaoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalObservacaoLabel">Adicionar Observação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formObservacao">
+                        <div class="mb-3">
+                            <label for="textoObservacao" class="form-label">Digite sua observação</label>
+                            <textarea class="form-control" id="textoObservacao" rows="4" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="adicionarObservacao()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -311,6 +345,28 @@
             // Limpar os campos do modal
             document.getElementById('tipoAtividade').value = '';
             document.getElementById('cargaHorariaAtividade').value = '';
+        }
+
+        function adicionarObservacao() {
+            const observacao = document.getElementById('textoObservacao').value;
+
+            if (!observacao.trim()) {
+                alert("Por favor, escreva uma observação antes de salvar.");
+                return;
+            }
+
+            const exibirObservacao = document.getElementById('exibir-observacao');
+            exibirObservacao.innerHTML = `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <p class="card-text">${observacao}</p>
+                    </div>
+                </div>
+            `;
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalObservacao'));
+            modal.hide();
+            document.getElementById('textoObservacao').value = '';
         }
     </script>
 </body>
