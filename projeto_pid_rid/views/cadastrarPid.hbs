@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="card shadow p-4 mx-auto">
@@ -15,7 +17,8 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="ano" class="form-label">Ano Letivo</label>
-                        <input type="number" class="form-control" id="ano" name="ano" placeholder="Digite o ano letivo..." required />
+                        <input type="number" class="form-control" id="ano" name="ano"
+                            placeholder="Digite o ano letivo..." required />
                     </div>
                     <div class="col-md-6">
                         <label for="semestre" class="form-label">Semestre Letivo</label>
@@ -32,7 +35,8 @@
                     <!-- Disciplinas -->
                     <div class="secao-atividade mb-4">
                         <h3>Disciplinas</h3>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDisciplinas">
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalDisciplinas">
                             + Adicionar Disciplina
                         </button>
                         <div id="lista-disciplinas" class="mt-2"></div>
@@ -41,7 +45,8 @@
                     <!-- Atividades de Preparação e Manutenção do Ensino -->
                     <div class="secao-atividade mb-4">
                         <h3>Atividades de Preparação e Manutenção do Ensino</h3>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('preparacao-manutencao-ensino')">
+                        <button type="button" class="btn btn-primary btn-sm"
+                            onclick="abrirModalAtividades('preparacao-manutencao-ensino')">
                             + Adicionar Atividade
                         </button>
                         <div id="lista-preparacao-manutencao" class="mt-2"></div>
@@ -50,7 +55,8 @@
                     <!-- Atividades de Apoio ao Ensino -->
                     <div class="secao-atividade mb-4">
                         <h3>Atividades de Apoio ao Ensino</h3>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('apoio-ensino')">
+                        <button type="button" class="btn btn-primary btn-sm"
+                            onclick="abrirModalAtividades('apoio-ensino')">
                             + Adicionar Atividade
                         </button>
                         <div id="lista-apoio-ensino" class="mt-2"></div>
@@ -59,7 +65,8 @@
                     <!-- Atividades de Orientação -->
                     <div class="secao-atividade mb-4">
                         <h3>Atividades de Orientação</h3>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('orientacao')">
+                        <button type="button" class="btn btn-primary btn-sm"
+                            onclick="abrirModalAtividades('orientacao')">
                             + Adicionar Atividade
                         </button>
                         <div id="lista-orientacao" class="mt-2"></div>
@@ -68,7 +75,8 @@
                     <!-- Atividades de Pesquisa e Inovação -->
                     <div class="secao-atividade mb-4">
                         <h3>Atividades de Pesquisa e Inovação</h3>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('pesquisa-inovacao')">
+                        <button type="button" class="btn btn-primary btn-sm"
+                            onclick="abrirModalAtividades('pesquisa-inovacao')">
                             + Adicionar Atividade
                         </button>
                         <div id="lista-pesquisa-inovacao" class="mt-2"></div>
@@ -86,7 +94,8 @@
                     <!-- Atividades de Gestão Institucional e Representações -->
                     <div class="secao-atividade mb-4">
                         <h3>Atividades de Gestão Institucional e Representações</h3>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('gestao-institucional')">
+                        <button type="button" class="btn btn-primary btn-sm"
+                            onclick="abrirModalAtividades('gestao-institucional')">
                             + Adicionar Atividade
                         </button>
                         <div id="lista-gestao-institucional" class="mt-2"></div>
@@ -95,7 +104,8 @@
                     <!-- Atividades de Qualificação e Capacitação -->
                     <div class="secao-atividade mb-4">
                         <h3>Atividades de Qualificação e Capacitação</h3>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('qualificacao-capacitacao')">
+                        <button type="button" class="btn btn-primary btn-sm"
+                            onclick="abrirModalAtividades('qualificacao-capacitacao')">
                             + Adicionar Atividade
                         </button>
                         <div id="lista-qualificacao-capacitacao" class="mt-2"></div>
@@ -104,7 +114,8 @@
                     <!-- Nova Seção de Observação -->
                     <div class="secao-atividade mb-4">
                         <h3>Observação</h3>
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalObservacao">
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalObservacao">
                             + Adicionar Observação
                         </button>
                         <div id="exibir-observacao" class="mt-2"></div>
@@ -120,7 +131,8 @@
     </div>
 
     <!-- Modal para Adicionar Disciplinas -->
-    <div class="modal fade" id="modalDisciplinas" tabindex="-1" aria-labelledby="modalDisciplinasLabel" aria-hidden="true">
+    <div class="modal fade" id="modalDisciplinas" tabindex="-1" aria-labelledby="modalDisciplinasLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -148,7 +160,8 @@
     </div>
 
     <!-- Modal para Adicionar Outras Atividades -->
-    <div class="modal fade" id="modalAtividades" tabindex="-1" aria-labelledby="modalAtividadesLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAtividades" tabindex="-1" aria-labelledby="modalAtividadesLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -178,7 +191,8 @@
     </div>
 
     <!-- Modal para Observação -->
-    <div class="modal fade" id="modalObservacao" tabindex="-1" aria-labelledby="modalObservacaoLabel" aria-hidden="true">
+    <div class="modal fade" id="modalObservacao" tabindex="-1" aria-labelledby="modalObservacaoLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -288,7 +302,6 @@
             modal.show();
         }
 
-        // Função para adicionar disciplina
         function adicionarDisciplina() {
             const nome = document.getElementById('nomeDisciplina').value;
             const cargaHoraria = document.getElementById('cargaHorariaDisciplina').value;
@@ -300,52 +313,73 @@
 
             const listaDisciplinas = document.getElementById('lista-disciplinas');
             listaDisciplinas.innerHTML += `
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <h5 class="card-title">${nome}</h5>
-                        <p class="card-text">Carga Horária: ${cargaHoraria} horas</p>
-                    </div>
-                </div>
-            `;
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">${nome}</h5>
+                <p class="card-text">Carga Horária: ${cargaHoraria} horas</p>
+            </div>
+        </div>
+    `;
 
-            // Fechar o modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalDisciplinas'));
+            // Fechar o modal corretamente
+            const modalElement = document.getElementById('modalDisciplinas');
+            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modal.hide();
+
+            // 🔥 Remover manualmente o backdrop caso ele continue na tela
+            setTimeout(() => {
+                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+            }, 500);
 
             // Limpar os campos do modal
             document.getElementById('nomeDisciplina').value = '';
             document.getElementById('cargaHorariaDisciplina').value = '';
         }
 
-        // Função para adicionar atividade
-        function adicionarAtividade() {
-            const tipo = tipoAtividadeSelecionado;
-            const atividade = document.getElementById('tipoAtividade').value;
-            const cargaHoraria = document.getElementById('cargaHorariaAtividade').value;
 
-            if (!atividade || !cargaHoraria) {
-                alert("Por favor, preencha todos os campos.");
-                return;
-            }
+        function adicionarDisciplina() {
+    const nome = document.getElementById('nomeDisciplina').value;
+    const cargaHoraria = document.getElementById('cargaHorariaDisciplina').value;
 
-            const listaAtividades = document.getElementById(`lista-${tipo}`);
-            listaAtividades.innerHTML += `
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <h5 class="card-title">${atividade}</h5>
-                        <p class="card-text">Carga Horária: ${cargaHoraria} horas</p>
-                    </div>
-                </div>
-            `;
+    if (!nome || !cargaHoraria) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
 
-            // Fechar o modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalAtividades'));
-            modal.hide();
+    const listaDisciplinas = document.getElementById('lista-disciplinas');
+    listaDisciplinas.innerHTML += `
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">${nome}</h5>
+                <p class="card-text">Carga Horária: ${cargaHoraria} horas</p>
+            </div>
+        </div>
+    `;
 
-            // Limpar os campos do modal
-            document.getElementById('tipoAtividade').value = '';
-            document.getElementById('cargaHorariaAtividade').value = '';
-        }
+    // Fechar modal corretamente
+    const modalElement = document.getElementById('modalDisciplinas');
+    const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+    modal.hide();
+
+    // 🔥 Remover backdrop manualmente e garantir reabertura do modal
+    setTimeout(() => {
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        document.body.classList.remove('modal-open'); // Garante que a página não fique travada
+        modalElement.classList.remove('show'); // Remove classe show para evitar inconsistências
+        modalElement.style.display = 'none'; // Garante que o modal desapareça
+    }, 300);
+
+    // Limpar os campos do modal
+    document.getElementById('nomeDisciplina').value = '';
+    document.getElementById('cargaHorariaDisciplina').value = '';
+
+    // 🔄 Resetar modal para que ele possa ser reaberto corretamente
+    modalElement.addEventListener('hidden.bs.modal', function () {
+        modalElement.removeAttribute('aria-modal');
+        modalElement.setAttribute('aria-hidden', 'true');
+    }, { once: true });
+}
+
 
         function adicionarObservacao() {
             const observacao = document.getElementById('textoObservacao').value;
@@ -370,4 +404,5 @@
         }
     </script>
 </body>
+
 </html>
