@@ -1,218 +1,187 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Criação de PID</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
     <div class="container mt-5">
-        <div class="card shadow p-4 mx-auto">
-            <h2 class="text-center mb-4">Criação de PID</h2>
-            <form method="post" action="/projeto_pid_rid/newpid">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="ano" class="form-label">Ano Letivo</label>
-                        <input type="number" class="form-control" id="ano" name="ano"
-                            placeholder="Digite o ano letivo..." required />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="semestre" class="form-label">Semestre Letivo</label>
-                        <select class="form-control" id="semestre" name="semestre" required>
-                            <option value="">Selecione o semestre...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
-                    </div>
-                </div>
+      <div class="card shadow p-4 mx-auto">
+        <h2 class="text-center mb-4">Criação de PID</h2>
+        <form method="post" action="/projeto_pid_rid/newpid">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="ano" class="form-label">Ano Letivo</label>
+              <input type="number" class="form-control" id="ano" name="ano" placeholder="Digite o ano letivo..." required />
+            </div>
+            <div class="col-md-6">
+              <label for="semestre" class="form-label">Semestre Letivo</label>
+              <select class="form-control" id="semestre" name="semestre" required>
+                <option value="">Selecione o semestre...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+          </div>
 
-                <!-- Seções de Atividades -->
-                <div id="secoes-atividades">
-                    <!-- Disciplinas -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Disciplinas</h3>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#modalDisciplinas">
-                            + Adicionar Disciplina
-                        </button>
-                        <div id="lista-disciplinas" class="mt-2"></div>
-                    </div>
+          <!-- Seções de Atividades -->
+          <div id="secoes-atividades">
+            <!-- Disciplinas -->
+            <div class="secao-atividade mb-4">
+              <h3>Disciplinas</h3>
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDisciplinas">
+                + Adicionar Disciplina
+              </button>
+              <div id="lista-disciplinas" class="mt-2"></div>
+            </div>
 
-                    <!-- Atividades de Preparação e Manutenção do Ensino -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Atividades de Preparação e Manutenção do Ensino</h3>
-                        <button type="button" class="btn btn-primary btn-sm"
-                            onclick="abrirModalAtividades('preparacao-manutencao-ensino')">
-                            + Adicionar Atividade
-                        </button>
-                        <div id="lista-preparacao-manutencao" class="mt-2"></div>
-                    </div>
+            <!-- Atividades de Preparação e Manutenção do Ensino -->
+            <div class="secao-atividade mb-4">
+              <h3>Atividades de Preparação e Manutenção do Ensino</h3>
+              <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('preparacao-manutencao-ensino')">
+                + Adicionar Atividade
+              </button>
+              <div id="lista-preparacao-manutencao-ensino" class="mt-2"></div>
+            </div>
 
-                    <!-- Atividades de Apoio ao Ensino -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Atividades de Apoio ao Ensino</h3>
-                        <button type="button" class="btn btn-primary btn-sm"
-                            onclick="abrirModalAtividades('apoio-ensino')">
-                            + Adicionar Atividade
-                        </button>
-                        <div id="lista-apoio-ensino" class="mt-2"></div>
-                    </div>
+            <!-- Outras seções de atividades (ex.: Apoio, Orientação etc.) -->
+            <!-- ... (mantém a mesma estrutura dos botões abaixo, usando type="button") -->
+            <div class="secao-atividade mb-4">
+              <h3>Atividades de Apoio ao Ensino</h3>
+              <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('apoio-ensino')">
+                + Adicionar Atividade
+              </button>
+              <div id="lista-apoio-ensino" class="mt-2"></div>
+            </div>
+            <div class="secao-atividade mb-4">
+              <h3>Atividades de Orientação</h3>
+              <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('orientacao')">
+                + Adicionar Atividade
+              </button>
+              <div id="lista-orientacao" class="mt-2"></div>
+            </div>
+            <div class="secao-atividade mb-4">
+              <h3>Atividades de Pesquisa e Inovação</h3>
+              <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('pesquisa-inovacao')">
+                + Adicionar Atividade
+              </button>
+              <div id="lista-pesquisa-inovacao" class="mt-2"></div>
+            </div>
+            <div class="secao-atividade mb-4">
+              <h3>Atividades de Extensão</h3>
+              <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('extensao')">
+                + Adicionar Atividade
+              </button>
+              <div id="lista-extensao" class="mt-2"></div>
+            </div>
+            <div class="secao-atividade mb-4">
+              <h3>Atividades de Gestão Institucional e Representações</h3>
+              <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('gestao-institucional')">
+                + Adicionar Atividade
+              </button>
+              <div id="lista-gestao-institucional" class="mt-2"></div>
+            </div>
+            <div class="secao-atividade mb-4">
+              <h3>Atividades de Qualificação e Capacitação</h3>
+              <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('qualificacao-capacitacao')">
+                + Adicionar Atividade
+              </button>
+              <div id="lista-qualificacao-capacitacao" class="mt-2"></div>
+            </div>
 
-                    <!-- Atividades de Orientação -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Atividades de Orientação</h3>
-                        <button type="button" class="btn btn-primary btn-sm"
-                            onclick="abrirModalAtividades('orientacao')">
-                            + Adicionar Atividade
-                        </button>
-                        <div id="lista-orientacao" class="mt-2"></div>
-                    </div>
+            <!-- Observação -->
+            <div class="secao-atividade mb-4">
+              <h3>Observação</h3>
+              <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalObservacao">
+                + Adicionar Observação
+              </button>
+              <div id="exibir-observacao" class="mt-2"></div>
+            </div>
+          </div>
 
-                    <!-- Atividades de Pesquisa e Inovação -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Atividades de Pesquisa e Inovação</h3>
-                        <button type="button" class="btn btn-primary btn-sm"
-                            onclick="abrirModalAtividades('pesquisa-inovacao')">
-                            + Adicionar Atividade
-                        </button>
-                        <div id="lista-pesquisa-inovacao" class="mt-2"></div>
-                    </div>
-
-                    <!-- Atividades de Extensão -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Atividades de Extensão</h3>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="abrirModalAtividades('extensao')">
-                            + Adicionar Atividade
-                        </button>
-                        <div id="lista-extensao" class="mt-2"></div>
-                    </div>
-
-                    <!-- Atividades de Gestão Institucional e Representações -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Atividades de Gestão Institucional e Representações</h3>
-                        <button type="button" class="btn btn-primary btn-sm"
-                            onclick="abrirModalAtividades('gestao-institucional')">
-                            + Adicionar Atividade
-                        </button>
-                        <div id="lista-gestao-institucional" class="mt-2"></div>
-                    </div>
-
-                    <!-- Atividades de Qualificação e Capacitação -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Atividades de Qualificação e Capacitação</h3>
-                        <button type="button" class="btn btn-primary btn-sm"
-                            onclick="abrirModalAtividades('qualificacao-capacitacao')">
-                            + Adicionar Atividade
-                        </button>
-                        <div id="lista-qualificacao-capacitacao" class="mt-2"></div>
-                    </div>
-
-                    <!-- Nova Seção de Observação -->
-                    <div class="secao-atividade mb-4">
-                        <h3>Observação</h3>
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#modalObservacao">
-                            + Adicionar Observação
-                        </button>
-                        <div id="exibir-observacao" class="mt-2"></div>
-                    </div>
-
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </div>
-            </form>
-        </div>
+          <div class="text-center">
+            <!-- Botão Enviar: caso necessário, ajuste sua ação -->
+            <button type="button" class="btn btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- Modal para Adicionar Disciplinas -->
-    <div class="modal fade" id="modalDisciplinas" tabindex="-1" aria-labelledby="modalDisciplinasLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDisciplinasLabel">Adicionar Disciplina</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formDisciplina">
-                        <div class="mb-3">
-                            <label for="nomeDisciplina" class="form-label">Nome da Disciplina</label>
-                            <input type="text" class="form-control" id="nomeDisciplina" required />
-                        </div>
-                        <div class="mb-3">
-                            <label for="cargaHorariaDisciplina" class="form-label">Carga Horária</label>
-                            <input type="number" class="form-control" id="cargaHorariaDisciplina" required />
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="adicionarDisciplina()">Adicionar</button>
-                </div>
-            </div>
-        </div>
+<div class="modal fade" id="modalDisciplinas" tabindex="-1" aria-labelledby="modalDisciplinasLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDisciplinasLabel">Adicionar Disciplina</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formDisciplina">
+          <div class="mb-3">
+            <label for="nomeDisciplina" class="form-label">Nome da Disciplina</label>
+            <input type="text" class="form-control" id="nomeDisciplina" required />
+          </div>
+          <div class="mb-3">
+            <label for="cargaHorariaDisciplina" class="form-label">Carga Horária</label>
+            <input type="number" class="form-control" id="cargaHorariaDisciplina" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+
 
     <!-- Modal para Adicionar Outras Atividades -->
-    <div class="modal fade" id="modalAtividades" tabindex="-1" aria-labelledby="modalAtividadesLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalAtividadesLabel">Adicionar Atividade</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formAtividade">
-                        <div class="mb-3">
-                            <label for="tipoAtividade" class="form-label">Tipo de Atividade</label>
-                            <select class="form-control" id="tipoAtividade" required>
-                                <!-- Opções serão preenchidas dinamicamente -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="cargaHorariaAtividade" class="form-label">Carga Horária</label>
-                            <input type="number" class="form-control" id="cargaHorariaAtividade" required />
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="adicionarAtividade()">Adicionar</button>
-                </div>
-            </div>
+    <div class="modal fade" id="modalAtividades" tabindex="-1" aria-labelledby="modalAtividadesLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalAtividadesLabel">Adicionar Atividade</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formAtividade">
+              <div class="mb-3">
+                <label for="tipoAtividade" class="form-label">Tipo de Atividade</label>
+                <select class="form-control" id="tipoAtividade" required>
+                  <!-- Opções serão preenchidas dinamicamente -->
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="cargaHorariaAtividade" class="form-label">Carga Horária</label>
+                <input type="number" class="form-control" id="cargaHorariaAtividade" required />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Adicionar</button>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal para Observação -->
-    <div class="modal fade" id="modalObservacao" tabindex="-1" aria-labelledby="modalObservacaoLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalObservacaoLabel">Adicionar Observação</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formObservacao">
-                        <div class="mb-3">
-                            <label for="textoObservacao" class="form-label">Digite sua observação</label>
-                            <textarea class="form-control" id="textoObservacao" rows="4" required></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="adicionarObservacao()">Salvar</button>
-                </div>
-            </div>
+    <div class="modal fade" id="modalObservacao" tabindex="-1" aria-labelledby="modalObservacaoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalObservacaoLabel">Adicionar Observação</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formObservacao">
+              <div class="mb-3">
+                <label for="textoObservacao" class="form-label">Digite sua observação</label>
+                <textarea class="form-control" id="textoObservacao" rows="4" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Salvar</button>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Bootstrap JS e Dependências -->
@@ -220,189 +189,200 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <script>
-        // Dados das atividades por tipo
-        const atividadesPorTipo = {
-            'preparacao-manutencao-ensino': [
-                'Estudo, Planejamento e Elaboração de Materiais e Práticas Pedagógicas',
-                'Preparação de Aulas Teóricas e Práticas',
-                'Organização de Material Pedagógico',
-                'Produção e Correção dos Instrumentos de Avaliação',
-                'Registro de Atividades Acadêmicas'
-            ],
-            'apoio-ensino': [
-                'Atendimento de Alunos Extraclasse (física ou virtual)',
-                'Reuniões Pedagógicas, Conselhos de Classe e/ou Reuniões de Pais',
-                'Participação Banca de Trabalho de Conclusão de Curso',
-                'Atendimento de Alunos em Regime de Exercício Domiciliar',
-                'Orientação em Olímpiadas do Conhecimento e/ou Competições Diversas',
-                'Organização, Coordenação e/ou Acompanhamento de Visitas Técnicas',
-                'Nivelamento sem Constituição de Turma'
-            ],
-            'orientacao': [
-                'Orientação de Estágio',
-                'Coordenação e Participação como Colaborador em Projeto de Ensino',
-                'Orientação Acadêmica',
-                'Orientação em Monitorias de Ensino e Iniciação à Docência',
-                'Orientação de Trabalhos de Conclusão de Curso',
-                'Orientação ou Coorientação de Mestrado ou Doutorado',
-                'Participação na Elaboração e Revisão de Projetos Pedagógicos de Cursos'
-            ],
-            'pesquisa-inovacao': [
-                'Atividades de Pesquisa e Inovação',
-                'Coordenação e Participação como colaborador em Projeto de Pesquisa',
-                'Orientação de Aluno de Iniciação à Pesquisa Científica e/ou Tecnológica',
-                'Coordenação e/ou Participação de Grupo de Pesquisa Cadastrado no CNPq',
-                'Participação de Banca Examinadora de Tese de Doutorado e/ou Dissertação de Mestrado',
-                'Participação em Conselho Editorial Local, Regional, Nacional ou Internacional'
-            ],
-            'extensao': [
-                'Coordenação e Participação como Colaborador em Programas e Projetos de Extensão',
-                'Coordenação de Cursos e Eventos de Extensão',
-                'Publicação de Pôsters, Resumos e/ou artigos Resultantes de Projetos de Extensão, em Periódicos de Extensão',
-                'Prestação de Serviços: Conjunto de Ações, tais como Consultorias, Laudos Técnicos e Assessorias',
-                'Atividades Resultantes de Projetos e Programas de Extensão, Tais como Apresentações em Eventos'
-            ],
-            'gestao-institucional': [
-                'Diretorias Sistêmicas, Chefias e Coordenadorias de Ensino, Pesquisa e Extensão',
-                'Atividades de Coordenação de Curso',
-                'Atividades de Chefia ou Coordenação de Laboratório de Pesquisa',
-                'Atividades Referentes aos Processos de Cotação, Compra, Conferência de Materiais',
-                'Atividades não Remuneradas de Participação em Comissões Permanentes'
-            ],
-            'qualificacao-capacitacao': [
-                'Curso de Graduação',
-                'Curso de Pós-Graduação',
-                'Curso de Mestrado',
-                'Curso de Doutorado',
-                'Curso de Capacitação'
-            ]
-        };
+      // Dados das atividades por tipo
+      const atividadesPorTipo = {
+        "preparacao-manutencao-ensino": [
+          "Estudo, Planejamento e Elaboração de Materiais e Práticas Pedagógicas",
+          "Preparação de Aulas Teóricas e Práticas",
+          "Organização de Material Pedagógico",
+          "Produção e Correção dos Instrumentos de Avaliação",
+          "Registro de Atividades Acadêmicas"
+        ],
+        "apoio-ensino": [
+          "Atendimento de Alunos Extraclasse (física ou virtual)",
+          "Reuniões Pedagógicas, Conselhos de Classe e/ou Reuniões de Pais",
+          "Participação Banca de Trabalho de Conclusão de Curso",
+          "Atendimento de Alunos em Regime de Exercício Domiciliar",
+          "Orientação em Olímpiadas do Conhecimento e/ou Competições Diversas",
+          "Organização, Coordenação e/ou Acompanhamento de Visitas Técnicas",
+          "Nivelamento sem Constituição de Turma"
+        ],
+        orientacao: [
+          "Orientação de Estágio",
+          "Coordenação e Participação como Colaborador em Projeto de Ensino",
+          "Orientação Acadêmica",
+          "Orientação em Monitorias de Ensino e Iniciação à Docência",
+          "Orientação de Trabalhos de Conclusão de Curso",
+          "Orientação ou Coorientação de Mestrado ou Doutorado",
+          "Participação na Elaboração e Revisão de Projetos Pedagógicos de Cursos"
+        ],
+        "pesquisa-inovacao": [
+          "Atividades de Pesquisa e Inovação",
+          "Coordenação e Participação como colaborador em Projeto de Pesquisa",
+          "Orientação de Aluno de Iniciação à Pesquisa Científica e/ou Tecnológica",
+          "Coordenação e/ou Participação de Grupo de Pesquisa Cadastrado no CNPq",
+          "Participação de Banca Examinadora de Tese de Doutorado e/ou Dissertação de Mestrado",
+          "Participação em Conselho Editorial Local, Regional, Nacional ou Internacional"
+        ],
+        extensao: [
+          "Coordenação e Participação como Colaborador em Programas e Projetos de Extensão",
+          "Coordenação de Cursos e Eventos de Extensão",
+          "Publicação de Pôsters, Resumos e/ou artigos Resultantes de Projetos de Extensão, em Periódicos de Extensão",
+          "Prestação de Serviços: Conjunto de Ações, tais como Consultorias, Laudos Técnicos e Assessorias",
+          "Atividades Resultantes de Projetos e Programas de Extensão, Tais como Apresentações em Eventos"
+        ],
+        "gestao-institucional": [
+          "Diretorias Sistêmicas, Chefias e Coordenadorias de Ensino, Pesquisa e Extensão",
+          "Atividades de Coordenação de Curso",
+          "Atividades de Chefia ou Coordenação de Laboratório de Pesquisa",
+          "Atividades Referentes aos Processos de Cotação, Compra, Conferência de Materiais",
+          "Atividades não Remuneradas de Participação em Comissões Permanentes"
+        ],
+        "qualificacao-capacitacao": [
+          "Curso de Graduação",
+          "Curso de Pós-Graduação",
+          "Curso de Mestrado",
+          "Curso de Doutorado",
+          "Curso de Capacitação"
+        ]
+      };
 
-        // Variável global para armazenar o tipo de atividade selecionado
-        let tipoAtividadeSelecionado = '';
+      // Variável global para armazenar o tipo de atividade selecionado
+      let tipoAtividadeSelecionado = "";
 
-        // Função para abrir o modal de atividades
-        function abrirModalAtividades(tipo) {
-            tipoAtividadeSelecionado = tipo;
-            const modal = new bootstrap.Modal(document.getElementById('modalAtividades'));
-            const select = document.getElementById('tipoAtividade');
+      // Eventos de submit para os formulários dos modais
+      document.getElementById("formAtividade").addEventListener("submit", function (event) {
+        event.preventDefault();
+        adicionarAtividade();
+      });
+      document.getElementById("formObservacao").addEventListener("submit", function (event) {
+        event.preventDefault();
+        adicionarObservacao();
+      });
+document.getElementById("formDisciplina").addEventListener("submit", function (event) {
+  event.preventDefault();
+  adicionarDisciplina();
+});
 
-            // Limpa as opções anteriores
-            select.innerHTML = '';
 
-            // Adiciona as opções correspondentes ao tipo de atividade
-            atividadesPorTipo[tipo].forEach(atividade => {
-                const option = document.createElement('option');
-                option.value = atividade;
-                option.textContent = atividade;
-                select.appendChild(option);
-            });
+      // Função para abrir o modal de atividades
+      function abrirModalAtividades(tipo) {
+        tipoAtividadeSelecionado = tipo;
+        const modal = new bootstrap.Modal(document.getElementById("modalAtividades"));
+        const select = document.getElementById("tipoAtividade");
 
-            // Abre o modal
-            modal.show();
+        // Limpa as opções anteriores
+        select.innerHTML = "";
+
+        // Adiciona as opções correspondentes ao tipo de atividade
+        atividadesPorTipo[tipo].forEach((atividade) => {
+          const option = document.createElement("option");
+          option.value = atividade;
+          option.textContent = atividade;
+          select.appendChild(option);
+        });
+
+        // Abre o modal
+        modal.show();
+      }
+
+      // Função para adicionar atividade
+      function adicionarAtividade() {
+        const tipo = document.getElementById("tipoAtividade").value;
+        const cargaHoraria = document.getElementById("cargaHorariaAtividade").value;
+
+        if (!tipo || !cargaHoraria) {
+          alert("Por favor, preencha todos os campos.");
+          return;
         }
 
-        function adicionarDisciplina() {
-            const nome = document.getElementById('nomeDisciplina').value;
-            const cargaHoraria = document.getElementById('cargaHorariaDisciplina').value;
+        // Define o id da lista a partir do tipo global selecionado
+        const listaId = "lista-" + tipoAtividadeSelecionado; // ex: lista-preparacao-manutencao-ensino
+        const lista = document.getElementById(listaId);
 
-            if (!nome || !cargaHoraria) {
-                alert("Por favor, preencha todos os campos.");
-                return;
-            }
-
-            const listaDisciplinas = document.getElementById('lista-disciplinas');
-            listaDisciplinas.innerHTML += `
-        <div class="card mb-2">
-            <div class="card-body">
-                <h5 class="card-title">${nome}</h5>
+        if (lista) {
+          lista.innerHTML += `
+            <div class="card mb-2">
+              <div class="card-body">
+                <h5 class="card-title">${tipo}</h5>
                 <p class="card-text">Carga Horária: ${cargaHoraria} horas</p>
+              </div>
             </div>
-        </div>
-    `;
-
-            // Fechar o modal corretamente
-            const modalElement = document.getElementById('modalDisciplinas');
-            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            modal.hide();
-
-            // 🔥 Remover manualmente o backdrop caso ele continue na tela
-            setTimeout(() => {
-                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-            }, 500);
-
-            // Limpar os campos do modal
-            document.getElementById('nomeDisciplina').value = '';
-            document.getElementById('cargaHorariaDisciplina').value = '';
+          `;
+        } else {
+          alert("Lista não encontrada para o tipo selecionado.");
         }
 
+        // Fecha o modal de atividades
+        const modalElement = document.getElementById("modalAtividades");
+        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
 
-        function adicionarDisciplina() {
-    const nome = document.getElementById('nomeDisciplina').value;
-    const cargaHoraria = document.getElementById('cargaHorariaDisciplina').value;
+        // Limpa os campos do modal
+        document.getElementById("cargaHorariaAtividade").value = "";
+      }
 
-    if (!nome || !cargaHoraria) {
-        alert("Por favor, preencha todos os campos.");
-        return;
-    }
+      // Função para adicionar disciplina
+function adicionarDisciplina() {
+  const nome = document.getElementById("nomeDisciplina").value;
+  const cargaHoraria = document.getElementById("cargaHorariaDisciplina").value;
 
-    const listaDisciplinas = document.getElementById('lista-disciplinas');
-    listaDisciplinas.innerHTML += `
-        <div class="card mb-2">
-            <div class="card-body">
-                <h5 class="card-title">${nome}</h5>
-                <p class="card-text">Carga Horária: ${cargaHoraria} horas</p>
-            </div>
-        </div>
-    `;
+  if (!nome || !cargaHoraria) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
 
-    // Fechar modal corretamente
-    const modalElement = document.getElementById('modalDisciplinas');
-    const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-    modal.hide();
+  const listaDisciplinas = document.getElementById("lista-disciplinas");
+  listaDisciplinas.innerHTML += `
+    <div class="card mb-2">
+      <div class="card-body">
+        <h5 class="card-title">${nome}</h5>
+        <p class="card-text">Carga Horária: ${cargaHoraria} horas</p>
+      </div>
+    </div>
+  `;
 
-    // 🔥 Remover backdrop manualmente e garantir reabertura do modal
-    setTimeout(() => {
-        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-        document.body.classList.remove('modal-open'); // Garante que a página não fique travada
-        modalElement.classList.remove('show'); // Remove classe show para evitar inconsistências
-        modalElement.style.display = 'none'; // Garante que o modal desapareça
-    }, 300);
+  // Fecha o modal usando a instância do Bootstrap
+  const modalElement = document.getElementById("modalDisciplinas");
+  const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+  modalInstance.hide();
 
-    // Limpar os campos do modal
-    document.getElementById('nomeDisciplina').value = '';
-    document.getElementById('cargaHorariaDisciplina').value = '';
+  // Aguarda um pouco para remover manualmente o backdrop e a classe "modal-open"
+  setTimeout(() => {
+    document.querySelectorAll('.modal-backdrop').forEach((el) => el.remove());
+    document.body.classList.remove('modal-open');
+  }, 350);
 
-    // 🔄 Resetar modal para que ele possa ser reaberto corretamente
-    modalElement.addEventListener('hidden.bs.modal', function () {
-        modalElement.removeAttribute('aria-modal');
-        modalElement.setAttribute('aria-hidden', 'true');
-    }, { once: true });
+  // Limpa os campos
+  document.getElementById("nomeDisciplina").value = "";
+  document.getElementById("cargaHorariaDisciplina").value = "";
 }
 
 
-        function adicionarObservacao() {
-            const observacao = document.getElementById('textoObservacao').value;
+      // Função para adicionar observação
+      function adicionarObservacao() {
+        const observacao = document.getElementById("textoObservacao").value;
 
-            if (!observacao.trim()) {
-                alert("Por favor, escreva uma observação antes de salvar.");
-                return;
-            }
-
-            const exibirObservacao = document.getElementById('exibir-observacao');
-            exibirObservacao.innerHTML = `
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <p class="card-text">${observacao}</p>
-                    </div>
-                </div>
-            `;
-
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalObservacao'));
-            modal.hide();
-            document.getElementById('textoObservacao').value = '';
+        if (!observacao.trim()) {
+          alert("Por favor, escreva uma observação antes de salvar.");
+          return;
         }
-    </script>
-</body>
 
+        const exibirObservacao = document.getElementById("exibir-observacao");
+        exibirObservacao.innerHTML = `
+          <div class="card mb-2">
+            <div class="card-body">
+              <p class="card-text">${observacao}</p>
+            </div>
+          </div>
+        `;
+
+        const modalElement = document.getElementById("modalObservacao");
+        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+
+        document.getElementById("textoObservacao").value = "";
+      }
+    </script>
+  </body>
 </html>
