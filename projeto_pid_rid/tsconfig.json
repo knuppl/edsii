@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",  // Pasta onde os arquivos compilados serão salvos
+    "rootDir": "./"       // Raiz do projeto
+  },
+  "include": ["**/*.ts"], // Inclui todos os arquivos .ts no projeto
+  "exclude": ["node_modules"]
+}
