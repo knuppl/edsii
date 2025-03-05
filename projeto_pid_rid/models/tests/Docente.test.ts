@@ -81,6 +81,10 @@ describe("E-mail do Docente", () => {
     it('deve lançar uma exceção quando chamar o método get e o atributo estiver indefinido', () => {
         expect(() => docente.getEmail()).toThrow(/^O email não pode estar indefinido!$/);
     });
+
+    it('deve lançar uma exceção quando o  endereço for inválido', ()=>{
+        expect(() => docente.setEmail('3394')).toThrow(/^O email deve ser válido.$/)
+    })
 })
 describe('Senha do docente', () => {
 

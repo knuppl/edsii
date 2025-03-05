@@ -33,6 +33,10 @@ describe("Ano do PID", () =>{
         expect(() => cadpid.setAno(1999)).toThrow(/^Ano letivo inválido!$/);
         expect(() => cadpid.setAno(2027)).toThrow(/^Ano letivo inválido!$/);
     })
+
+    it('deve lançar uma exceção quando chamar o método get e o atributo estiver indefinido', () =>{
+        expect(() => cadpid.getAno()).toThrow(/^O ano letivo não pode estar indefinido!$/)
+    })
 })
 
 describe("Semestre do PID", () =>{
@@ -48,6 +52,10 @@ describe("Semestre do PID", () =>{
 
     it('deve gerar uma exceção quando o semestre for inválido', () =>{
         expect(() => cadpid.setSemestre(3)).toThrow(/^Semestre inválido! Escolha 1 ou 2.$/);
+    })
+
+    it('Deve lançar uma exceção quando chamar o get e o atributo estiver indefinido', ()=>{
+        expect(() => cadpid.getSemestre()).toThrow(/^O semestre letivo não pode estar indefinido!$/)
     })
 })
 
