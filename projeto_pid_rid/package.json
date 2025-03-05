@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npx nodemon -r ts-node/register ./bin/www.ts",
+    "start": "npx nodemon --exec ts-node bin/www.ts",
     "test": "jest",
     "test:coverage": "npx jest --coverage"
   },
