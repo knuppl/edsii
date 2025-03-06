@@ -9,6 +9,9 @@
     "outDir": "./dist",  // Pasta onde os arquivos compilados serão salvos
     "rootDir": "./"       // Raiz do projeto
   },
-  "include": ["**/*.ts"], // Inclui todos os arquivos .ts no projeto
+  "include": [
+    "src/**/*",
+    "types/**/*", 
+    "**/*.ts"], // Inclui todos os arquivos .ts no projeto
   "exclude": ["node_modules"]
 }
