@@ -1,0 +1,75 @@
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="mb-4 text-center">Cadastro de Docente</h2>
+
+       <!-- Verificando o status passado pela URL -->
+        {{#if status}}
+            {{#if (eq status "success")}}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Sucesso!</strong> Docente cadastrado com sucesso!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {{else}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Erro!</strong> {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {{/if}}
+        {{/if}}
+
+
+        <!-- Ajuste o método e a ação do formulário -->
+        <form method="POST" action="/docente">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="nome" class="form-label">Nome Completo</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="siape" class="form-label">SIAPE</label>
+                    <input type="text" class="form-control" id="siape" name="siape" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="senha" class="form-label">Senha</label>
+                    <input type="password" class="form-control" id="senha" name="senha" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="tipoServidor" class="form-label">Tipo de Servidor</label>
+                    <select class="form-control" id="tipoServidor" name="tipoServidor" required>
+                        <option value="">Selecione</option>
+                        <option value="Efetivo">Efetivo</option>
+                        <option value="Substituto">Substituto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="regime" class="form-label">Regime de Trabalho</label>
+                <select class="form-control" id="regime" name="regimeTrabalho" required>
+                    <option value="">Selecione</option>
+                    <option value="20">20 horas</option>
+                    <option value="40">40 horas</option>
+                </select>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

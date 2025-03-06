@@ -3,47 +3,66 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 import cadastroPidRoutes from './routes/cadastroPidRoutes'; // Importando as rotas do PID
+import session from 'express-session'; // Para gerenciar a sessão do usuário
+import cadastroDocenteRoutes from './routes/cadastroDocenteRoutes';
 
+const exphbs = require('express-handlebars');
 const app: Express = express(); // Define o tipo da variável app como Express
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// Configuração do Handlebars
+const hbs = exphbs.create({
+  defaultLayout: path.join(__dirname, 'views', 'layout.hbs'), // Caminho completo para o layout
+  helpers: {
+    eq: function (a: string, b: string): boolean {
+      return a === b;
+    }
+  }
+});
 
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Configuração da sessão
+app.use(session({
+  secret: 'teste', // Altere para algo seguro
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Defina como true se estiver usando HTTPS
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Rotas
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/projeto_pid_rid', cadastroPidRoutes); // Usando as rotas do PID
+app.use('/docente', cadastroDocenteRoutes); // Usando as rotas de cadastro de docentes
 
+// Rota para renderizar o formulário de cadastro de PID
 app.get('/cadastrarPid', (req: Request, res: Response) => {
   res.render('cadastrarPid');
 });
 
-app.get('/cadastrar', (req: Request, res: Response) => {
-  res.render('cadastro');
-});
 
-// catch 404 and forward to error handler
+
+
+// Tratamento de erros
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createError(404));
 });
 
-// error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
