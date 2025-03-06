@@ -8,6 +8,7 @@ export class Docente {
     private regimeTrabalho!: number;
 
     // Getters e Setters
+    
     getNome(): string {
         if (!this.nome) throw new Error('O nome não pode estar indefinido!');
         return this.nome;

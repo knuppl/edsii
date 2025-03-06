@@ -1,22 +1,23 @@
-        <h2 class="text-center mb-4">Login</h2>
+<h2 class="text-center mb-4">Login</h2>
 
-        <form>
-            <div class="mb-3">
-                <input type="text" class="form-control" id="usuario" placeholder="Usuário" required>
-            </div>
+{{#if errorMessage}}
+    <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+    </div>
+{{/if}}
 
-            <div class="mb-3">
-                <input type="password" class="form-control" id="senha" placeholder="Senha" required>
-            </div>
+<form method="POST" action="/docente/login">
+    <div class="mb-3">
+        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuário" required>
+    </div>
 
-            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    <div class="mb-3">
+        <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
+    </div>
 
-            <div class="text-center mt-3">
-                <a href="cadastro.hbs" class="text-decoration-none">Não tem login?! Cadastre-se!</a>
-                <a href="/users/cadastrarPid.hbs" class="text-decoration-none">Cadastro PID!</a>
-            </div>
-        </form>
+    <button type="submit" class="btn btn-primary w-100">Entrar</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <div class="text-center mt-3">
+        <a href="/docente/cadastrarDocente" class="text-decoration-none">Não tem login? Cadastre-se!</a>
+    </div>
+</form>
