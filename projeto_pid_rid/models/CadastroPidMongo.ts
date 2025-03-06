@@ -39,6 +39,12 @@ export class CadastroPidMongo {
         const doc = await collection.findOne({ _id: new ObjectId(id) });
         return doc ? CadastroPidMongo.fromDBObject(doc) : null;
     }
+    
+    static async buscarPIDsPorCPF(cpf: string): Promise<any[]> {
+        const db = await connectDB(); // Conecta ao banco de dados
+        const pids = await db.collection('pids').find({ cpf }).toArray(); // Busca os PIDs por CPF
+        return pids;
+    }
 
     async atualiza(id: string, dados: Partial<CadastroPid>): Promise<void> {
         const db = await connectDB();

@@ -1,0 +1,20 @@
+<h2 class="text-center mb-4">Meus PIDs</h2>
+
+<h4>Bem-vindo, {{docenteNome}}!</h4>
+
+<!-- Exibir os PIDs -->
+{{#if pids}}
+    <ul>
+        {{#each pids}}
+            <li>
+                <strong>Ano:</strong> {{this.ano}} | <strong>Semestre:</strong> {{this.semestre}}
+                <button class="btn btn-primary">Editar</button>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>Você ainda não cadastrou nenhum PID.</p>
+{{/if}}
+
+<!-- Botão para cadastrar um novo PID -->
+<a href="/projeto_pid_rid/cadastrarPid" class="btn btn-success">Cadastrar Novo PID</a>

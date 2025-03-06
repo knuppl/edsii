@@ -6,6 +6,7 @@ import logger from 'morgan';
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 import cadastroPidRoutes from './routes/cadastroPidRoutes'; // Importando as rotas do PID
+import session from 'express-session'; // Para gerenciar a sessão do usuário
 import cadastroDocenteRoutes from './routes/cadastroDocenteRoutes';
 
 const exphbs = require('express-handlebars');
@@ -30,6 +31,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Configuração da sessão
+app.use(session({
+  secret: 'teste', // Altere para algo seguro
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Defina como true se estiver usando HTTPS
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas
@@ -42,6 +51,9 @@ app.use('/docente', cadastroDocenteRoutes); // Usando as rotas de cadastro de do
 app.get('/cadastrarPid', (req: Request, res: Response) => {
   res.render('cadastrarPid');
 });
+
+
+
 
 // Tratamento de erros
 app.use((req: Request, res: Response, next: NextFunction) => {

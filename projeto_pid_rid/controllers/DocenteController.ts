@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import { Docente } from '../models/Docente';  // Seu modelo de Docente
 import { DocenteMongo } from '../models/DocenteMongo'; // Seu modelo MongoDB para Docente
+import bcrypt from 'bcryptjs'; // Certifique-se de instalar bcryptjs para a comparação de senhas
+import 'express-session';  // Certificando-se de que o TypeScript esteja ciente da extensão da sessão
+
 
 class DocenteController {
     // Método para cadastrar um novo Docente
@@ -37,6 +40,44 @@ class DocenteController {
             }
         }
     }
+
+    async login(req: Request, res: Response): Promise<void> {
+        const { usuario, senha } = req.body; // Pegando os dados do formulário
+    
+        try {
+            const docenteMongo = new DocenteMongo();
+            const docente = await docenteMongo.consultaPorUsuario(usuario); // Use consulta para encontrar o docente
+    
+            if (docente) {
+                const senhaValida = (senha === docente.getSenha()); // Comparando a senha sem criptografia
+    
+                if (senhaValida) {
+                    // Redireciona para a página de PIDs, passando o email do docente (ou outro identificador)
+                    res.redirect(`/docente/pids?docenteEmail=${docente.getEmail()}`);
+                } else {
+                    res.render('index', { errorMessage: 'Senha incorreta!' });
+                }
+            } else {
+                res.render('index', { errorMessage: 'Usuário não encontrado!' });
+            }
+        } catch (error) {
+            console.error(error);
+            res.render('index', { errorMessage: 'Erro ao realizar o login!' });
+        }
+    }
+
+    // // Página para exibir os PIDs cadastrados do docente
+    // async mostrarPIDs(req: Request, res: Response): Promise<void> {
+    //     try {
+    //         const docenteMongo = new DocenteMongo();
+    //         const pids = await docenteMongo.lista(); // Lógica para buscar os PIDs cadastrados
+
+    //         res.render('pids', { title: 'Meus PIDs', pids: pids }); // Renderizando a página de PIDs
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.render('error', { message: 'Erro ao carregar os PIDs' });
+    //     }
+    // }
 }
 
 export { DocenteController };

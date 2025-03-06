@@ -7,7 +7,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",  // Pasta onde os arquivos compilados serão salvos
-    "rootDir": "./"       // Raiz do projeto
+    "rootDir": "./",       // Raiz do projeto
+    "typeRoots": ["./node_modules/@types", "./types"] // Certifique-se de que "./types" está correto
   },
   "include": ["**/*.ts"], // Inclui todos os arquivos .ts no projeto
   "exclude": ["node_modules"]
