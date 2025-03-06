@@ -1,4 +1,4 @@
-import {SessionData} from 'express-session'; // Importa o módulo express-session
+import 'express-session'; // Importa o módulo express-session
 
 declare module 'express-session' {
   interface SessionData {
