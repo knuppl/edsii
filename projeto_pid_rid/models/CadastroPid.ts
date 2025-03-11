@@ -5,7 +5,6 @@ export class CadastroPid {
     private atividades!: { tipo: string; descricao: string; cargaHoraria: number }[];
     private observacao!: string; // Novo atributo
 
-
     // Getter e Setter para Docente ID
     getDocenteId(): string {
         if (!this.docenteId) throw new Error("O ID do docente não pode estar indefinido!");
@@ -50,10 +49,11 @@ export class CadastroPid {
         if (!Array.isArray(valor) || valor.length === 0) throw new Error("É necessário incluir pelo menos uma atividade!");
         for (const atividade of valor) {
             if (!atividade.tipo.trim() || !atividade.descricao.trim()) throw new Error("Tipo e descrição da atividade não podem estar vazios!");
-            if (atividade.cargaHoraria <= 0) throw new Error("A carga horária deve ser maior que zero!");
+            if (atividade.cargaHoraria < 0) throw new Error("A carga horária não pode ser menor que zero!");
         }
         this.atividades = valor;
     }
+    
 
      // Getter e Setter para Observação
      getObservacao(): string {

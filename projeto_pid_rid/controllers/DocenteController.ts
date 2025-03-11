@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { Docente } from '../models/Docente';  // Seu modelo de Docente
 import { DocenteMongo } from '../models/DocenteMongo'; // Seu modelo MongoDB para Docente
 import bcrypt from 'bcryptjs'; // Certifique-se de instalar bcryptjs para a comparação de senhas
-import jwt from 'jsonwebtoken';
 import 'express-session';  // Certificando-se de que o TypeScript esteja ciente da extensão da sessão
 
 
@@ -42,39 +41,27 @@ class DocenteController {
         }
     }
 
-    // Exemplo de uso no DocenteController
-
-async login(req: Request, res: Response) {
-    const { usuario, senha } = req.body;
-  
-    const docenteMongo = new DocenteMongo();
-    const docente = await docenteMongo.consultaPorUsuario(usuario);
-  
-    if (docente) {
-        const senhaValida = (senha === docente.getSenha());
-
-        if(senhaValida){
-        (req.session as any).docente = {
-        cpf: docente.getCpf(),
-        nome: docente.getNome(),
-        email: docente.getEmail(),
-      };
-      res.redirect(`/docente/pids?docenteEmail=${docente.getEmail()}`);
-    }
-    } else {
-      return res.status(401).send('Credenciais inválidas');
-    }
-  }      
+    async login(req: Request, res: Response) {
+        const { usuario, senha } = req.body;
       
-    async logout(req: Request, res: Response): Promise<void> {
-        req.session.destroy((err) => {
-            if (err) {
-                return res.redirect('/index');
-            }
-            res.redirect('/index'); // Redireciona de volta para a página inicial
-        });
-    }
+        const docenteMongo = new DocenteMongo();
+        const docente = await docenteMongo.consultaPorUsuario(usuario);
+      
+        if (docente) {
+            const senhaValida = (senha === docente.getSenha());
     
+            if(senhaValida){
+            (req.session as any).docente = {
+            cpf: docente.getCpf(),
+            nome: docente.getNome(),
+            email: docente.getEmail(),
+          };
+          res.redirect(`/docente/pids?docenteEmail=${docente.getEmail()}`);
+        }
+        } else {
+          return res.status(401).send('Credenciais inválidas');
+        }
+      }  
 
     // // Página para exibir os PIDs cadastrados do docente
     // async mostrarPIDs(req: Request, res: Response): Promise<void> {

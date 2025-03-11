@@ -7,6 +7,7 @@ export class CadastroPidMongo {
 
     // Converte um CadastroPid para um formato compatível com MongoDB
     private static toDBObject(pid: CadastroPid) {
+        console.log("Convertendo PID para objeto MongoDB:", JSON.stringify(pid, null, 2));
         return {
             docenteId: pid.getDocenteId(),
             ano: pid.getAno(),
@@ -43,6 +44,13 @@ export class CadastroPidMongo {
     static async buscarPIDsPorCPF(cpf: string): Promise<any[]> {
         const db = await connectDB(); // Conecta ao banco de dados
         const pids = await db.collection('pids').find({ cpf }).toArray(); // Busca os PIDs por CPF
+        return pids;
+    }
+
+    static async buscarPIDsPorEmail(email: string): Promise<any[]> {
+        const db = await connectDB(); // Conecta ao banco de dados
+        const pids = await db.collection('pids').find({ docenteId: email }).toArray(); // Busca os PIDs por email
+        console.log("PIDs encontrados:", pids); // Verifique o que está sendo retornado
         return pids;
     }
 

@@ -52,7 +52,7 @@ export class CadastroRid {
         if (!Array.isArray(valor) || valor.length === 0) throw new Error("É necessário incluir pelo menos uma atividade!");
         for (const atividade of valor) {
             if (!atividade.tipo.trim() || !atividade.descricao.trim()) throw new Error("Tipo e descrição da atividade não podem estar vazios!");
-            if (atividade.cargaHoraria <= 0) throw new Error("A carga horária deve ser maior que zero!");
+            if (atividade.cargaHoraria < 0) throw new Error("A carga horária não pode ser menor que zero!");
         }
         this.atividades = valor;
     }
