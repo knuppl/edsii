@@ -5,27 +5,40 @@ import { DocenteMongo } from '../models/DocenteMongo'; // Importando o MongoDB p
 
 
 class CadastroRidController {
+    
      // Método para cadastrar um novo rid
-     async cadastrar(req: Request, res: Response): Promise<void> {
+    async cadastrar(req: Request, res: Response): Promise<void> {
         if (!(req.session as any).docente) {
             return res.status(401).render('login', { errorMessage: 'Você precisa estar logado para realizar o cadastro!' });
         }
     
         const { ano, semestre, observacao } = req.body;
-        
+    
+        // Obtendo as atividades
         const atividades = req.body.atividades.map((atividade: any) => ({
             tipo: atividade.tipo,
             descricao: atividade.descricao,
             cargaHoraria: parseInt(atividade.cargaHoraria, 10),
         }));
     
+        // Soma da carga horária das atividades
+        const cargaHorariaTotal = atividades.reduce((total: number, atividade: { cargaHoraria: number; }) => total + atividade.cargaHoraria, 0);
+    
         try {
             const docenteEmail = (req.session as any).docente.email;
             const docenteMongo = new DocenteMongo();
             const docente = await docenteMongo.consultaPorUsuario(docenteEmail);
     
-            console.log('Docente da sessão:', (req.session as any).docente); 
+            // Verificar se a carga horária total corresponde ao regime de trabalho do docente
+            const regimeDeTrabalho = docente?.getRegimeTrabalho();
     
+            if (cargaHorariaTotal !== regimeDeTrabalho) {
+                return res.render('index', { errorMessage: `A carga horária total das atividades (${cargaHorariaTotal} horas) deve ser igual ao regime de trabalho do docente (${regimeDeTrabalho} horas).` });
+            }
+    
+            console.log('Docente da sessão:', (req.session as any).docente);
+    
+            // Criar a instância do rid
             const rid = new CadastroRid();
             rid.setDocenteId(docenteEmail);
             rid.setAno(ano);
@@ -37,9 +50,9 @@ class CadastroRidController {
             await cadastroridMongo.cria(rid);
             console.log('rid salvo com sucesso!');
     
-            (req.session as any).successMessage = "rid CADASTRADO COM SUCESSO!";
-            
-            res.redirect('/docente/rids');
+            (req.session as any).successMessage = "RID CADASTRADO COM SUCESSO!";
+    
+            res.redirect('/docente/pids');
         } catch (error) {
             console.error(error);
     
@@ -51,6 +64,7 @@ class CadastroRidController {
             res.render('index', { errorMessage: 'Erro ao cadastrar o rid!' });
         }
     }
+
     // Método para listar os rids do docente
     async listar(req: Request, res: Response): Promise<void> {
         console.log('Sessão atual:', req.session); // Verificar o conteúdo da sessão

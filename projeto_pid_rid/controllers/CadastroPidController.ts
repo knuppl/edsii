@@ -14,20 +14,32 @@ class CadastroPidController {
         }
     
         const { ano, semestre, observacao } = req.body;
-        
+    
+        // Obtendo as atividades
         const atividades = req.body.atividades.map((atividade: any) => ({
             tipo: atividade.tipo,
             descricao: atividade.descricao,
             cargaHoraria: parseInt(atividade.cargaHoraria, 10),
         }));
     
+        // Soma da carga horária das atividades
+        const cargaHorariaTotal = atividades.reduce((total: number, atividade: { cargaHoraria: number; }) => total + atividade.cargaHoraria, 0);
+    
         try {
             const docenteEmail = (req.session as any).docente.email;
             const docenteMongo = new DocenteMongo();
             const docente = await docenteMongo.consultaPorUsuario(docenteEmail);
     
-            console.log('Docente da sessão:', (req.session as any).docente); 
+            // Verificar se a carga horária total corresponde ao regime de trabalho do docente
+            const regimeDeTrabalho = docente?.getRegimeTrabalho();
     
+            if (cargaHorariaTotal !== regimeDeTrabalho) {
+                return res.render('index', { errorMessage: `A carga horária total das atividades (${cargaHorariaTotal} horas) deve ser igual ao regime de trabalho do docente (${regimeDeTrabalho} horas).` });
+            }
+    
+            console.log('Docente da sessão:', (req.session as any).docente);
+    
+            // Criar a instância do PID
             const pid = new CadastroPid();
             pid.setDocenteId(docenteEmail);
             pid.setAno(ano);
@@ -40,7 +52,7 @@ class CadastroPidController {
             console.log('PID salvo com sucesso!');
     
             (req.session as any).successMessage = "PID CADASTRADO COM SUCESSO!";
-            
+    
             res.redirect('/docente/pids');
         } catch (error) {
             console.error(error);

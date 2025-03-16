@@ -102,4 +102,17 @@ export class CadastroPidMongo {
         const collection = db.collection(this.collectionName);
         return await collection.countDocuments();
     }
+
+    async buscarPid(docenteEmail: string, ano: number, semestre: number): Promise<CadastroPid | null> {
+        const db = await connectDB();
+        const collection = db.collection(this.collectionName);
+    
+        const pid = await collection.findOne({
+            docenteId: docenteEmail,
+            ano: ano,
+            semestre: semestre
+        });
+    
+        return pid ? CadastroPidMongo.fromDBObject(pid) : null;
+    }    
 }

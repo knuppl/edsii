@@ -1,11 +1,12 @@
 import { ObjectId } from "mongodb";
 import { connectDB } from "./database";
-import { CadastroRid } from "./CadastroRid"; // Importando a classe Cadastrorid
+import { CadastroRid } from "./CadastroRid"; // Importando a classe CadastroRid
+import { CadastroPidMongo } from "./CadastroPidMongo"; // Adicionando a classe CadastroPidMongo para busca do PID
 
 export class CadastroRidMongo {
     private collectionName = "rids"; // Nome da coleção no MongoDB
 
-    // Converte um Cadastrorid para um formato compatível com MongoDB
+    // Converte um CadastroRid para um formato compatível com MongoDB
     private static toDBObject(rid: CadastroRid) {
         return {
             docenteId: rid.getDocenteId(),
@@ -16,7 +17,7 @@ export class CadastroRidMongo {
         };
     }
 
-    // Converte um documento do MongoDB para uma instância de Cadastrorid
+    // Converte um documento do MongoDB para uma instância de CadastroRid
     private static fromDBObject(doc: any): CadastroRid {
         const rid = new CadastroRid();
         rid.setDocenteId(doc.docenteId);
@@ -27,69 +28,98 @@ export class CadastroRidMongo {
         return rid;
     }
 
-   async cria(rid: CadastroRid): Promise<void> {
-          const db = await connectDB();
-          const collection = db.collection(this.collectionName);
-  
-          const existente = await collection.findOne({
-              docenteId: rid.getDocenteId(),
-              ano: rid.getAno(),
-              semestre: rid.getSemestre(),
-          })
-  
-          if(existente){
-              throw new Error("Já existe um PID cadastrado para este docente no mesmo semestre e ano letivo.");
-  
-          }
-          await collection.insertOne(CadastroRidMongo.toDBObject(rid));
-      }
+    // Método separado para comparar atividades de RID e PID
+    private static async compararAtividades(pidDocenteId: string, rid: CadastroRid): Promise<void> {
+        const pidMongo = new CadastroPidMongo();
+        const pid = await pidMongo.buscarPid(pidDocenteId, rid.getAno(), rid.getSemestre());
 
+        if (pid) {
+            const atividadesIguais = pid.getAtividades().every((pidAtividade: any, index: number) => {
+                const ridAtividade = rid.getAtividades()[index];
+                return pidAtividade.tipo === ridAtividade.tipo &&
+                    pidAtividade.descricao === ridAtividade.descricao &&
+                    pidAtividade.cargaHoraria === ridAtividade.cargaHoraria;
+            });
+
+            // Se as atividades forem diferentes, é necessário observar
+            if (!atividadesIguais && !rid.getObservacao()) {
+                throw new Error('Observação não pode estar vazia se as atividades forem diferentes.');
+            }
+        }
+    }
+
+    // Criação do RID
+    async cria(rid: CadastroRid): Promise<void> {
+        const db = await connectDB();
+        const collection = db.collection(this.collectionName);
+    
+        try {
+            // Verificar se já existe um RID para o docente no mesmo ano e semestre
+            const existente = await collection.findOne({
+                docenteId: rid.getDocenteId(),
+                ano: rid.getAno(),
+                semestre: rid.getSemestre(),
+            });
+    
+            if (existente) {
+                throw new Error("Já existe um RID cadastrado para este docente no mesmo semestre e ano letivo.");
+            }
+    
+            // Comparar atividades do PID e RID
+            await CadastroRidMongo.compararAtividades(rid.getDocenteId(), rid);
+    
+            // Inserir o RID no banco de dados
+            await collection.insertOne(CadastroRidMongo.toDBObject(rid));
+    
+        } catch (error: any) {
+            window.alert(error.message);
+        }
+    }
+
+    // Consultar um RID
     async consulta(id: string): Promise<CadastroRid | null> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
         const doc = await collection.findOne({ _id: new ObjectId(id) });
         return doc ? CadastroRidMongo.fromDBObject(doc) : null;
     }
-    
-    static async buscarridsPorCPF(cpf: string): Promise<any[]> {
-        const db = await connectDB(); // Conecta ao banco de dados
-        const rids = await db.collection('rids').find({ cpf }).toArray(); // Busca os rids por CPF
-        return rids;
-    }
 
+    // Buscar RIDs por e-mail do docente
     static async buscarRIDsPorEmail(email: string): Promise<any[]> {
-        const db = await connectDB(); // Conecta ao banco de dados
-        const rids = await db.collection('rids').find({ docenteId: email }).toArray(); // Busca os PIDs por email
+        const db = await connectDB();
+        const rids = await db.collection('rids').find({ docenteId: email }).toArray();
         console.log("RIDs encontrados:", rids);
         return rids;
     }
 
+    // Atualizar RID
     async atualiza(id: string, dados: Partial<CadastroRid>): Promise<void> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
 
-        // Converte os dados parciais para um objeto que o MongoDB pode entender
         const updateData = {
             ...(dados.getDocenteId && { docenteId: dados.getDocenteId() }),
             ...(dados.getAno && { ano: dados.getAno() }),
             ...(dados.getSemestre && { semestre: dados.getSemestre() }),
             ...(dados.getAtividades && { atividades: dados.getAtividades() }),
-            ...(dados.getObservacao && { observacao: dados.getObservacao() }), // Adicionando a observação
+            ...(dados.getObservacao && { observacao: dados.getObservacao() }),
         };
 
         await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });
     }
 
+    // Deletar RID
     async deleta(id: string): Promise<void> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
         const result = await collection.deleteOne({ _id: new ObjectId(id) });
 
         if (result.deletedCount === 0) {
-            throw new Error(`rid com ID ${id} não encontrado.`);
+            throw new Error(`RID com ID ${id} não encontrado.`);
         }
     }
 
+    // Listar todos os RIDs
     async lista(): Promise<CadastroRid[]> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
@@ -97,6 +127,7 @@ export class CadastroRidMongo {
         return docs.map(CadastroRidMongo.fromDBObject);
     }
 
+    // Contar RIDs
     async qtd(): Promise<number> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
