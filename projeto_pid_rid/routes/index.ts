@@ -6,5 +6,5 @@ const router: Router = Router();
 router.get('/', (req: Request, res: Response, next: NextFunction): void => {
   res.render('index', { title: 'Express' });
 });
-//requisição
+
 export default router;

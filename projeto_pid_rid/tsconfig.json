@@ -10,9 +10,6 @@
     "rootDir": "./",       // Raiz do projeto
     "typeRoots": ["./node_modules/@types", "./types"] // Certifique-se de que "./types" está correto
   },
-  "include": [
-    "src/**/*",
-    "types/**/*", 
-    "**/*.ts"], // Inclui todos os arquivos .ts no projeto
+  "include": ["**/*.ts"], // Inclui todos os arquivos .ts no projeto
   "exclude": ["node_modules"]
 }

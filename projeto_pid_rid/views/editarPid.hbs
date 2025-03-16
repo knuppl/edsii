@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de PID</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .atividade-row,
+        .disciplina-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .atividade-row label,
+        .disciplina-row label {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .atividade-row input,
+        .disciplina-row input {
+            width: 120px;
+        }
+
+        h3 {
+            background-color: #f7f7f7;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            color: #4a90e2;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            background-color: #4a90e2;
+            border-color: #4a90e2;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #357ab7;
+            border-color: #357ab7;
+        }
+
+        .container {
+            max-width: 1100px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 5px rgba(72, 134, 255, 0.5);
+            border-color: #4a90e2;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            padding: 0.3rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-sm p-4 mx-auto">
+            <h2 class="text-center mb-4 text-primary">Edição de PID</h2>
+            <div class="mb-3">
+                <h4>Bem-vindo, {{ docenteNome }}!</h4>
+            </div>
+
+            <!-- Formulário para editar o PID -->
+            <form method="post" action="/projeto_pid_rid/atualizarPid/{{pid._id}}">
+                <input type="hidden" name="_method" value="PUT">
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label for="ano" class="form-label">Ano Letivo</label>
+                        <input type="number" class="form-control" id="ano" name="ano" value="{{pid.ano}}" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="semestre" class="form-label">Semestre Letivo</label>
+                        <select class="form-control" id="semestre" name="semestre" required>
+                            <option value="1" {{#if (eq pid.semestre 1)}}selected{{/if}}>1º Semestre</option>
+                            <option value="2" {{#if (eq pid.semestre 2)}}selected{{/if}}>2º Semestre</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Seção de Disciplinas -->
+                <div class="secao-atividade">
+                    <h3 class="section-title">Disciplinas</h3>
+                    <div id="disciplinas-lista">
+                        {{#each pid.disciplinas}}
+                            <div class="disciplina-row">
+                                <label for="disciplinaNome">Nome da Disciplina</label>
+                                <input type="text" class="form-control" name="disciplinas[{{@index}}][descricao]" value="{{this.descricao}}" placeholder="Nome da Disciplina" required />
+
+                                <label for="disciplinaCargaHoraria">Carga Horária</label>
+                                <input type="number" class="form-control" name="disciplinas[{{@index}}][cargaHoraria]" value="{{this.cargaHoraria}}" placeholder="Carga horária" required />
+                                 
+                                <button type="button" class="btn-delete" onclick="removerDisciplina(this)">Excluir</button>
+                            </div>
+                        {{/each}}
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="adicionarDisciplina()">+ Adicionar Disciplina</button>
+                    </div>
+                </div>
+
+                <!-- Seções de Atividades -->
+                <div id="atividades">
+                    <h3 class="section-title">Atividades de Preparação e Manutenção do Ensino</h3>
+                    {{#each pid.atividades}}
+                        <div class="atividade-row">
+                            <label>{{this.descricao}}</label>
+                            <input type="hidden" name="atividades[{{@index}}][descricao]" value="{{this.descricao}}">
+                            <input type="hidden" name="atividades[{{@index}}][tipo]" value="{{this.tipo}}">
+                            <input type="number" class="form-control" name="atividades[{{@index}}][cargaHoraria]" value="{{this.cargaHoraria}}" placeholder="Carga horária" required min="0" />
+                        </div>
+                    {{/each}}
+                </div>
+
+                <!-- Seções de Outras Atividades (repetir para cada tipo de atividade) -->
+                <div class="secao-atividade">
+                    <h3 class="section-title">Atividades de Apoio ao Ensino</h3>
+                    <!-- Conteúdo de Atividades de Apoio ao Ensino -->
+                </div>
+
+                <div class="secao-atividade">
+                    <h3 class="section-title">Atividades de Orientação</h3>
+                    <!-- Conteúdo de Atividades de Orientação -->
+                </div>
+
+                <div class="secao-atividade">
+                    <h3 class="section-title">Atividades de Pesquisa e Inovação</h3>
+                    <!-- Conteúdo de Atividades de Pesquisa e Inovação -->
+                </div>
+
+                <div class="secao-atividade">
+                    <h3 class="section-title">Atividades de Extensão</h3>
+                    <!-- Conteúdo de Atividades de Extensão -->
+                </div>
+
+                <div class="secao-atividade">
+                    <h3 class="section-title">Atividades de Gestão Institucional e Representações</h3>
+                    <!-- Conteúdo de Atividades de Gestão Institucional e Representações -->
+                </div>
+
+                <div class="secao-atividade">
+                    <h3 class="section-title">Atividades de Qualificação e Capacitação</h3>
+                    <!-- Conteúdo de Atividades de Qualificação e Capacitação -->
+                </div>
+
+                <!-- Caixa de texto para Observação / Justificativa -->
+                <div class="secao-atividade">
+                    <h3 class="section-title">OBSERVAÇÃO / JUSTIFICATIVA</h3>
+                    <textarea class="form-control" id="observacao" name="observacao" rows="4" placeholder="Digite sua justificativa ou observação aqui..."></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-submit">Atualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS e Dependências -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        // Funções para adicionar e remover disciplinas
+        function adicionarDisciplina() {
+            const disciplinaContainer = document.getElementById('disciplinas-lista');
+            const disciplinaDiv = document.createElement('div');
+            disciplinaDiv.classList.add('disciplina-row');
+            disciplinaDiv.innerHTML = `
+                <label for="disciplinaNome">Nome da Disciplina</label>
+                <input type="text" class="form-control" name="disciplinas[][descricao]" placeholder="Nome da Disciplina" required />
+                <label for="disciplinaCargaHoraria">Carga Horária</label>
+                <input type="number" class="form-control" name="disciplinas[][cargaHoraria]" placeholder="Carga horária" required />
+                <button type="button" class="btn-delete" onclick="removerDisciplina(this)">Excluir</button>
+            `;
+            disciplinaContainer.appendChild(disciplinaDiv);
+        }
+
+        function removerDisciplina(button) {
+            const disciplinaDiv = button.parentElement;
+            disciplinaDiv.remove();
+        }
+    </script>
+</body>
+
+</html>

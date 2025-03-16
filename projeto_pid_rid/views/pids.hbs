@@ -1,20 +1,69 @@
 <h2 class="text-center mb-4">Meus PIDs</h2>
 
-<h4>Bem-vindo, {{docenteNome}}!</h4>
-
-<!-- Exibir os PIDs -->
 {{#if pids}}
-    <ul>
-        {{#each pids}}
-            <li>
-                <strong>Ano:</strong> {{this.ano}} | <strong>Semestre:</strong> {{this.semestre}}
-                <button class="btn btn-primary">Editar</button>
-            </li>
-        {{/each}}
-    </ul>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ano</th>
+                <th>Semestre</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each pids}}
+                <tr>
+                    <td>{{this.ano}}</td>
+                    <td>{{this.semestre}}</td>
+                    <td>
+                        <!-- Botão de editar -->
+                        <a href="/projeto_pid_rid/editarPid/{{this._id}}" class="btn btn-primary">Editar</a>
+                        
+                        <!-- Botão para excluir PID -->
+                        <form action="/projeto_pid_rid/pids/{{this._id}}/delete" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
 {{else}}
     <p>Você ainda não cadastrou nenhum PID.</p>
 {{/if}}
 
 <!-- Botão para cadastrar um novo PID -->
 <a href="/projeto_pid_rid/cadastrarPid" class="btn btn-success">Cadastrar Novo PID</a>
+
+<h2 class="text-center mb-4 mt-5">Meus RIDs</h2>
+
+{{#if rids}}
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Ano</th>
+                <th>Semestre</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each rids}}
+                <tr>
+                    <td>{{this.ano}}</td>
+                    <td>{{this.semestre}}</td>
+                    <td>
+                        <button class="btn btn-primary">Editar</button>
+                        <!-- Botão para excluir RID -->
+                        <form action="/projeto_pid_rid/rids/{{this._id}}/delete" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>Você ainda não cadastrou nenhum RID.</p>
+{{/if}}
+
+<!-- Botão para cadastrar um novo RID -->
+<a href="/projeto_pid_rid/cadastrarRid" class="btn btn-success">Cadastrar Novo RID</a>
