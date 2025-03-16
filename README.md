@@ -1,8 +1,8 @@
-# Projeto PID e RID - Sistema de Cadastro para Docentes
+# Trabalho Final da Disciplina de Engenharia de Software II
 
-## Trabalho Final da Disciplina de Engenharia de Software II
+## Projeto PID e RID - Sistema de Cadastro para Docentes
 
-## Este sistema foi desenvolvido para facilitar o cadastro e a gestão do  **Plano Individual Docente (PID)** e ** Relatório Individual de Docente (RID)**. Ele oferece uma interface simples para o gerenciamento das atividades acadêmicas, com funcionalidades de cadastro, edição e exclusão de registros.
+Este sistema foi desenvolvido para facilitar o cadastro e a gestão do  **Plano Individual Docente (PID)** e **Relatório Individual de Docente (RID)**. Ele oferece uma interface simples para o gerenciamento das atividades acadêmicas, com funcionalidades de cadastro, edição e exclusão de registros.
 
 ## Funcionalidades
 
