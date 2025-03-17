@@ -57,13 +57,13 @@ O projeto vem com testes unitários para garantir que o código esteja funcionan
 Para executr os testes por classe específica, passando o nome da classe, utilize o seguinte comando:
 
 ```bash
-npm run test:unit <nome-da-classe>
+npm run test classe.test.js
 ```
 
 Substitua <nome-da-classe> pelo nome da classe que você deseja testar. Por exemplo, para testar a classe CadastroPid, você rodaria o comando:
 
 ```bash
-npm run test:unit CadastroPid
+npm run test CadastroPid.test.ts
 ```
 
 ### 2. Teste Completo com Coverage
