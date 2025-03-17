@@ -41,10 +41,21 @@ router.get('/pids-rids', cadastroPidController.listar);
 // Rota para carregar o formulário de edição
 router.get('/editarPid/:id', cadastroPidController.editar);
 
-// Rota para atualizar o PID
-router.put('/projeto_pid_rid/atualizarPid/:id', cadastroPidController.atualizar);
+
+router.post('/atualizarPid/:id', cadastroPidController.atualizar);
 
 
+// Rota para carregar o formulário de edição do RID
+router.get('/editarRid/:id', cadastroRidController.editar);
+
+// Rota para atualizar o RID
+router.post('/atualizarRid/:id', cadastroRidController.atualizar);
+
+// Rota para visualizar o PID
+router.get('/visualizarPid/:id', cadastroPidController.visualizar);
+
+// Rota para visualizar o RID
+router.get('/visualizarRid/:id', cadastroRidController.visualizar);
 
 
 export default router;

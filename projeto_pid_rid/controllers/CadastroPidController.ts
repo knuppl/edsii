@@ -52,7 +52,6 @@ class CadastroPidController {
             console.log('PID salvo com sucesso!');
     
             (req.session as any).successMessage = "PID CADASTRADO COM SUCESSO!";
-    
             res.redirect('/docente/pids');
         } catch (error) {
             console.error(error);
@@ -122,78 +121,118 @@ class CadastroPidController {
     }
 
 
-
-    // Método para atualizar um PID existente
-    // async atualizar(req: Request, res: Response): Promise<void> {
-    //     try {
-    //         const id = req.params.id;
-    //         const { docenteId, ano, semestre, atividades, observacao } = req.body;
-
-    //         const cadastroPid = new CadastroPid();
-    //         if (docenteId) cadastroPid.setDocenteId(docenteId);
-    //         if (ano) cadastroPid.setAno(ano);
-    //         if (semestre) cadastroPid.setSemestre(semestre);
-    //         if (atividades) cadastroPid.setAtividades(atividades);
-    //         if (observacao) cadastroPid.setObservacao(observacao);
-
-    //         const cadastroPidMongo = new CadastroPidMongo();
-    //         await cadastroPidMongo.atualiza(id, cadastroPid);
-
-    //         res.status(200).json({ message: 'PID atualizado com sucesso!' });
-    //     } catch (error: unknown) {
-    //         if (error instanceof Error) {
-    //             res.status(400).json({ message: error.message || 'Erro ao atualizar o PID.' });
-    //         } else {
-    //             res.status(400).json({ message: 'Erro desconhecido ao atualizar o PID.' });
-    //         }
-    //     }
-    // }   
-
-    // Método para carregar o PID para edição
     async editar(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
         try {
             const cadastroPidMongo = new CadastroPidMongo();
             const pid = await cadastroPidMongo.consulta(id);
-
+    
             if (!pid) {
                 return res.render('error', { message: 'PID não encontrado.' });
             }
+    
+            // Agrupar atividades por tipo
+            const atividadesAgrupadas = pid.getAtividades().reduce((acc, atividade) => {
+                if (!acc[atividade.tipo]) {
+                    acc[atividade.tipo] = [];
+                }
+                acc[atividade.tipo].push(atividade);
+                return acc;
+            }, {} as Record<string, any[]>);
 
-            // Passa o PID para a view de edição
-            res.render('editarPid', { pid });
+            console.log('Dados PID:', { pid }); 
+            // Passa o PID e as atividades agrupadas para a view de edição
+            res.render('editarPid', { id, pid, atividadesAgrupadas, observacao: pid.getObservacao() });
         } catch (error) {
             console.error(error);
             res.render('error', { message: 'Erro ao carregar o PID para edição.' });
         }
     }
 
-    // Método para atualizar o PID existente
-async atualizar(req: Request, res: Response): Promise<void> {
-    const id = req.params.id;
-    const { ano, semestre, atividades, observacao } = req.body;
+    async atualizar(req: Request, res: Response): Promise<void> {
+        const { id, docenteId, ano, semestre, atividades, observacao } = req.body;
+        
+        try {
+            const cadastroPidMongo = new CadastroPidMongo();
+            const docenteMongo = new DocenteMongo();
+            const docente = await docenteMongo.consultaPorUsuario(docenteId);
+    
+            if (!docente) {
+                return res.render('error', { message: 'Docente não encontrado.' });
+            }
+    
+            const regimeDeTrabalho = Number(docente.getRegimeTrabalho()); // Garantindo que é número
 
+            // Processar atividades
+            const atividadesProcessadas = Object.values(atividades).map((atividade: any) => ({
+                tipo: atividade.tipo,
+                descricao: atividade.descricao,
+                cargaHoraria: Number(atividade.cargaHoraria) || 0,
+            }));
+    
+            // Verificar carga horária total
+            const cargaHorariaTotal = atividadesProcessadas.reduce((total, atividade) => total + atividade.cargaHoraria, 0);
+    
+            if (cargaHorariaTotal !== regimeDeTrabalho) {
+                return res.render('index', {
+                    errorMessage: `A carga horária das atividades (${cargaHorariaTotal} horas) deve ser igual ao regime de trabalho do docente (${regimeDeTrabalho} horas).`,                    id,
+                    docenteId,
+                    ano,
+                    semestre,
+                    atividades: atividadesProcessadas,
+                    observacao
+                }); 
+            }
+    
+            // Criar e atualizar PID
+            const pid = new CadastroPid();
+            pid.setAno(Number(ano));
+            pid.setSemestre(Number(semestre));
+            pid.setDocenteId(docenteId);
+            pid.setAtividades(atividadesProcessadas);
+            pid.setObservacao(observacao);
+    
+            await cadastroPidMongo.atualiza(id, pid);
+    
+            res.redirect('/projeto_pid_rid/pids-rids'); // Redireciona após atualização
+        } catch (error) {
+            console.error(error);
+            res.render('error', { message: 'Erro ao atualizar o PID.' });
+        }
+    }    
+
+async visualizar(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
     try {
         const cadastroPidMongo = new CadastroPidMongo();
-        const pid = new CadastroPid();
-        
-        pid.setAno(ano);
-        pid.setSemestre(semestre);
-        pid.setAtividades(atividades); // Passando as atividades com as cargas horárias atualizadas
-        pid.setObservacao(observacao);
+        const pid = await cadastroPidMongo.consulta(id);
 
-        // Atualizando o PID no banco
-        await cadastroPidMongo.atualiza(id, pid);
+        if (!pid) {
+            return res.render('error', { message: 'PID não encontrado.' });
+        }
 
-        res.redirect('/projeto_pid_rid/pids-rids'); // Redireciona após atualização
+        // Agrupar atividades por tipo
+        const atividadesAgrupadas = pid.getAtividades().reduce((acc, atividade) => {
+            if (!acc[atividade.tipo]) {
+                acc[atividade.tipo] = [];
+            }
+            acc[atividade.tipo].push(atividade);
+            return acc;
+        }, {} as Record<string, any[]>);
+
+        res.render('visualizarPid', { 
+            id, 
+            pid, 
+            atividadesAgrupadas, 
+            observacao: pid.getObservacao() 
+        });
     } catch (error) {
         console.error(error);
-        res.render('error', { message: 'Erro ao atualizar o PID.' });
+        res.render('error', { message: 'Erro ao carregar o PID para visualização.' });
     }
 }
 
-
      
-    }
+}
 
 export { CadastroPidController };

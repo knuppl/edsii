@@ -15,6 +15,7 @@
                     <td>{{this.ano}}</td>
                     <td>{{this.semestre}}</td>
                     <td>
+                        <a href="/projeto_pid_rid/visualizarPid/{{this._id}}" class="btn btn-info">Visualizar</a>
                         <!-- Botão de editar -->
                         <a href="/projeto_pid_rid/editarPid/{{this._id}}" class="btn btn-primary">Editar</a>
                         
@@ -51,7 +52,9 @@
                     <td>{{this.ano}}</td>
                     <td>{{this.semestre}}</td>
                     <td>
-                        <button class="btn btn-primary">Editar</button>
+                        <!-- Botão de visualizar -->
+                        <a href="/projeto_pid_rid/visualizarRid/{{this._id}}" class="btn btn-info">Visualizar</a>
+                        <a href="/projeto_pid_rid/editarRid/{{this._id}}" class="btn btn-primary">Editar</a>
                         <!-- Botão para excluir RID -->
                         <form action="/projeto_pid_rid/rids/{{this._id}}/delete" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger">Excluir</button>

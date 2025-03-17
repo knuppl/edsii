@@ -113,31 +113,120 @@ class CadastroRidController {
         }
     }
 
-    // Método para atualizar um rid existente
-    async atualizar(req: Request, res: Response): Promise<void> {
+    async editar(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
         try {
-            const id = req.params.id;
-            const { docenteId, ano, semestre, atividades, observacao } = req.body;
-
-            const cadastrorid = new CadastroRid();
-            if (docenteId) cadastrorid.setDocenteId(docenteId);
-            if (ano) cadastrorid.setAno(ano);
-            if (semestre) cadastrorid.setSemestre(semestre);
-            if (atividades) cadastrorid.setAtividades(atividades);
-            if (observacao) cadastrorid.setObservacao(observacao);
-
-            const cadastroridMongo = new CadastroRidMongo();
-            await cadastroridMongo.atualiza(id, cadastrorid);
-
-            res.status(200).json({ message: 'rid atualizado com sucesso!' });
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                res.status(400).json({ message: error.message || 'Erro ao atualizar o rid.' });
-            } else {
-                res.status(400).json({ message: 'Erro desconhecido ao atualizar o rid.' });
+            const cadastroRidMongo = new CadastroRidMongo();
+            const rid = await cadastroRidMongo.consulta(id);
+    
+            if (!rid) {
+                return res.render('error', { message: 'RID não encontrado.' });
             }
+    
+            // Agrupar atividades por tipo
+            const atividadesAgrupadas = rid.getAtividades().reduce((acc, atividade) => {
+                if (!acc[atividade.tipo]) {
+                    acc[atividade.tipo] = [];
+                }
+                acc[atividade.tipo].push(atividade);
+                return acc;
+            }, {} as Record<string, any[]>);
+    
+            console.log('Dados RID:', { rid }); 
+            // Passa o RID e as atividades agrupadas para a view de edição
+            res.render('editarRid', { id, rid, atividadesAgrupadas, observacao: rid.getObservacao() });
+        } catch (error) {
+            console.error(error);
+            res.render('error', { message: 'Erro ao carregar o RID para edição.' });
         }
     }
+
+async atualizar(req: Request, res: Response): Promise<void> {
+    const { id, docenteId, ano, semestre, atividades, observacao } = req.body;
+
+    try {
+        const cadastroRidMongo = new CadastroRidMongo();
+        const docenteMongo = new DocenteMongo();
+        const docente = await docenteMongo.consultaPorUsuario(docenteId);
+
+        if (!docente) {
+            return res.render('error', { message: 'Docente não encontrado.' });
+        }
+
+        const regimeDeTrabalho = Number(docente.getRegimeTrabalho()); // Garantindo que é número
+
+        // Processar atividades e garantir que a carga horária seja numérica
+        const atividadesProcessadas = Object.values(atividades).map((atividade: any) => ({
+            tipo: atividade.tipo,
+            descricao: atividade.descricao,
+            cargaHoraria: Number(atividade.cargaHoraria) || 0, // Garante que valores inválidos virem 0
+        }));
+
+        // Calcular carga horária total
+        const cargaHorariaTotal = atividadesProcessadas.reduce((total, atividade) => total + atividade.cargaHoraria, 0);
+
+        console.log(`Carga Horária Total: ${cargaHorariaTotal}, Regime de Trabalho: ${regimeDeTrabalho}`);
+
+        // Verificar se a carga horária bate com o regime de trabalho do docente
+        if (cargaHorariaTotal !== regimeDeTrabalho) {
+            return res.render('index', {
+                errorMessage: `A carga horária das atividades (${cargaHorariaTotal} horas) deve ser igual ao regime de trabalho do docente (${regimeDeTrabalho} horas).`,
+                id,
+                docenteId,
+                ano,
+                semestre,
+                atividades: atividadesProcessadas,
+                observacao
+            });
+        }
+
+        // Criar e atualizar RID
+        const rid = new CadastroRid();
+        rid.setAno(Number(ano));
+        rid.setSemestre(Number(semestre));
+        rid.setDocenteId(docenteId);
+        rid.setAtividades(atividadesProcessadas);
+        rid.setObservacao(observacao);
+
+        await cadastroRidMongo.atualiza(id, rid);
+
+        res.redirect('/projeto_pid_rid/pids-rids'); // Redireciona após atualização
+    } catch (error) {
+        console.error(error);
+        res.render('error', { message: 'Erro ao atualizar o RID.' });
+    }
+}
+
+async visualizar(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
+    try {
+        const cadastroRidMongo = new CadastroRidMongo();
+        const rid = await cadastroRidMongo.consulta(id);
+
+        if (!rid) {
+            return res.render('error', { message: 'RID não encontrado.' });
+        }
+
+        // Agrupar atividades por tipo
+        const atividadesAgrupadas = rid.getAtividades().reduce((acc, atividade) => {
+            if (!acc[atividade.tipo]) {
+                acc[atividade.tipo] = [];
+            }
+            acc[atividade.tipo].push(atividade);
+            return acc;
+        }, {} as Record<string, any[]>);
+
+        res.render('visualizarRid', { 
+            id, 
+            rid, 
+            atividadesAgrupadas, 
+            observacao: rid.getObservacao() 
+        });
+    } catch (error) {
+        console.error(error);
+        res.render('error', { message: 'Erro ao carregar o RID para visualização.' });
+    }
+}
      
     }
 

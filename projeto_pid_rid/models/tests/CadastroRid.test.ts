@@ -89,14 +89,14 @@ describe("Atividade do Rid", () => {
         }).toThrow("Tipo e descrição da atividade não podem estar vazios!");
     });
 
-    it('deve lançar erro se a carga horária for menor ou igual a zero', () => {
+    it('deve lançar erro se a carga horária for menor que zero', () => {
         const atividades = [
-            { tipo: "Aula", descricao: "Dispositivos móveis", cargaHoraria: 0 }
+            { tipo: "Aula", descricao: "Dispositivos móveis", cargaHoraria: -1 }
         ];
 
         expect(() => {
             cadrid.setAtividades(atividades);
-        }).toThrow("A carga horária deve ser maior que zero!");
+        }).toThrow("A carga horária não pode ser menor que zero!");
     });
 
     it('deve retornar as atividades corretamente', () => {

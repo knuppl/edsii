@@ -9,9 +9,12 @@ import cadastroPidRoutes from './routes/cadastroPidRoutes'
 import session from 'express-session'; // Para gerenciar a sessão do usuário
 import cadastroDocenteRoutes from './routes/cadastroDocenteRoutes';
 import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
+
 
 const exphbs = require('express-handlebars');
 const app: Express = express(); // Define o tipo da variável app como Express
+
 
 // Configuração do Handlebars
 const hbs = exphbs.create({
