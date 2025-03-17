@@ -92,9 +92,9 @@
             <h2 class="text-center mb-4 text-primary">Criação de PID</h2>
             <!-- Exibir o nome do docente -->
             <div class="mb-3">
-                <h4>Bem-vindo, {{docenteNome}}!</h4>
+                <h4>Bem-vindo!</h4>
             </div>
-            
+
             <form method="post" action="/projeto_pid_rid/newpid">
                 <div class="row mb-4">
                     <div class="col-md-6">
@@ -129,30 +129,49 @@
                     <div class="secao-atividade">
                         <h3 class="section-title">Atividades de Preparação e Manutenção do Ensino</h3>
                         <div class="atividade-row">
-                            <label for="atividade1">Estudo, Planejamento e Elaboração de Materiais e Práticas
-                                Pedagógicas</label>
-                            <input type="number" class="form-control" id="atividade1" name="atividade1"
-                                placeholder="Carga horária" />
+                            <label>Estudo, Planejamento e Elaboração de Materiais e Práticas Pedagógicas</label>
+                            <input type="hidden" name="atividades[0][tipo]"
+                                value="Atividades de Preparação e Manutenção do Ensino" />
+                            <input type="hidden" name="atividades[0][descricao]"
+                                value="Estudo, Planejamento e Elaboração de Materiais e Práticas Pedagógicas" />
+                            <input type="number" class="form-control" name="atividades[0][cargaHoraria]"
+                                placeholder="Carga horária" required min="0" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade2">Preparação de Aulas Teóricas e Práticas</label>
-                            <input type="number" class="form-control" id="atividade2" name="atividade2"
-                                placeholder="Carga horária" />
+                            <label>Preparação de Aulas Teóricas e Práticas</label>
+                            <input type="hidden" name="atividades[1][tipo]"
+                                value="Atividades de Preparação e Manutenção do Ensino" />
+                            <input type="hidden" name="atividades[1][descricao]"
+                                value="Preparação de Aulas Teóricas e Práticas" />
+                            <input type="number" class="form-control" name="atividades[1][cargaHoraria]"
+                                placeholder="Carga horária" required min="0" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade3">Organização de Material Pedagógico</label>
-                            <input type="number" class="form-control" id="atividade3" name="atividade3"
-                                placeholder="Carga horária" />
+                            <input type="hidden" name="atividades[2][tipo]"
+                                value="Atividades de Preparação e Manutenção do Ensino" />
+                            <input type="hidden" name="atividades[2][descricao]"
+                                value="Organização de Material Pedagógico" />
+                            <input type="number" class="form-control" name="atividades[2][cargaHoraria]"
+                                placeholder="Carga horária" required min="0" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade4">Produção e Correção dos Instrumentos de Avaliação</label>
-                            <input type="number" class="form-control" id="atividade4" name="atividade4"
-                                placeholder="Carga horária" />
+                            <input type="hidden" name="atividades[3][tipo]"
+                                value="Atividades de Preparação e Manutenção do Ensino" />
+                            <input type="hidden" name="atividades[3][descricao]"
+                                value="Produção e Correção dos Instrumentos de Avaliação" />
+                            <input type="number" class="form-control" name="atividades[3][cargaHoraria]"
+                                placeholder="Carga horária" required min="0" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade5">Registro de Atividades Acadêmicas</label>
-                            <input type="number" class="form-control" id="atividade5" name="atividade5"
-                                placeholder="Carga horária" />
+                            <input type="hidden" name="atividades[4][tipo]"
+                                value="Atividades de Preparação e Manutenção do Ensino" />
+                            <input type="hidden" name="atividades[4][descricao]"
+                                value="Registro de Atividades Acadêmicas" />
+                            <input type="number" class="form-control" name="atividades[4][cargaHoraria]"
+                                placeholder="Carga horária" required min="0" />
                         </div>
                     </div>
 
@@ -161,82 +180,123 @@
                         <h3 class="section-title">Atividades de Apoio ao Ensino</h3>
                         <div class="atividade-row">
                             <label for="atividade6">Atendimento de Alunos Extraclasse (física ou virtual)</label>
-                            <input type="number" class="form-control" id="atividade6" name="atividade6"
+                            <input type="hidden" name="atividades[5][tipo]" value="Atividades de Apoio ao Ensino" />
+                            <input type="hidden" name="atividades[5][descricao]"
+                                value="Atendimento de Alunos Extraclasse (física ou virtual)" />
+                            <input type="number" class="form-control" name="atividades[5][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade7">Reuniões Pedagógicas, Conselhos de Classe e/ou Reuniões de
                                 Pais</label>
-                            <input type="number" class="form-control" id="atividade7" name="atividade7"
+                            <input type="hidden" name="atividades[6][tipo]" value="Atividades de Apoio ao Ensino" />
+                            <input type="hidden" name="atividades[6][descricao]"
+                                value="Reuniões Pedagógicas, Conselhos de Classe e/ou Reuniões de Pais" />
+                            <input type="number" class="form-control" name="atividades[6][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade8">Participação em Banca de Trabalho de Conclusão de Curso</label>
-                            <input type="number" class="form-control" id="atividade8" name="atividade8"
+                            <input type="hidden" name="atividades[7][tipo]" value="Atividades de Apoio ao Ensino" />
+                            <input type="hidden" name="atividades[7][descricao]"
+                                value="Participação em Banca de Trabalho de Conclusão de Curso" />
+                            <input type="number" class="form-control" name="atividades[7][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade9">Atendimento de Alunos em Regime de Exercício Domiciliar</label>
-                            <input type="number" class="form-control" id="atividade9" name="atividade9"
+                            <input type="hidden" name="atividades[8][tipo]" value="Atividades de Apoio ao Ensino" />
+                            <input type="hidden" name="atividades[8][descricao]"
+                                value="Atendimento de Alunos em Regime de Exercício Domiciliar" />
+                            <input type="number" class="form-control" name="atividades[8][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade10">Orientação em Olímpiadas do Conhecimento e/ou Competições
                                 Diversas</label>
-                            <input type="number" class="form-control" id="atividade10" name="atividade10"
+                            <input type="hidden" name="atividades[9][tipo]" value="Atividades de Apoio ao Ensino" />
+                            <input type="hidden" name="atividades[9][descricao]"
+                                value="Orientação em Olímpiadas do Conhecimento e/ou Competições Diversas" />
+                            <input type="number" class="form-control" name="atividades[9][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade11">Organização, Coordenação e/ou Acompanhamento de Visitas
                                 Técnicas</label>
-                            <input type="number" class="form-control" id="atividade11" name="atividade11"
+                            <input type="hidden" name="atividades[10][tipo]" value="Atividades de Apoio ao Ensino" />
+                            <input type="hidden" name="atividades[10][descricao]"
+                                value="Organização, Coordenação e/ou Acompanhamento de Visitas Técnicas" />
+                            <input type="number" class="form-control" name="atividades[10][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade12">Nivelamento sem Constituição de Turma</label>
-                            <input type="number" class="form-control" id="atividade12" name="atividade12"
+                            <input type="hidden" name="atividades[11][tipo]" value="Atividades de Apoio ao Ensino" />
+                            <input type="hidden" name="atividades[11][descricao]"
+                                value="Nivelamento sem Constituição de Turma" />
+                            <input type="number" class="form-control" name="atividades[11][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                     </div>
+
 
                     <!-- Atividades de Orientação -->
                     <div class="secao-atividade">
                         <h3 class="section-title">Atividades de Orientação</h3>
                         <div class="atividade-row">
                             <label for="atividade13">Orientação de Estágio</label>
-                            <input type="number" class="form-control" id="atividade13" name="atividade13"
+                            <input type="hidden" name="atividades[12][tipo]" value="Atividades de Orientação" />
+                            <input type="hidden" name="atividades[12][descricao]" value="Orientação de Estágio" />
+                            <input type="number" class="form-control" name="atividades[12][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade14">Coordenação e Participação como Colaborador em Projeto de
                                 Ensino</label>
-                            <input type="number" class="form-control" id="atividade14" name="atividade14"
+                            <input type="hidden" name="atividades[13][tipo]" value="Atividades de Orientação" />
+                            <input type="hidden" name="atividades[13][descricao]"
+                                value="Coordenação e Participação como Colaborador em Projeto de Ensino" />
+                            <input type="number" class="form-control" name="atividades[13][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade15">Orientação Acadêmica</label>
-                            <input type="number" class="form-control" id="atividade15" name="atividade15"
+                            <input type="hidden" name="atividades[14][tipo]" value="Atividades de Orientação" />
+                            <input type="hidden" name="atividades[14][descricao]" value="Orientação Acadêmica" />
+                            <input type="number" class="form-control" name="atividades[14][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade15">Orientação em Monitorias de Ensino e Iniciação à Docência</label>
-                            <input type="number" class="form-control" id="atividade15" name="atividade15"
+                            <label for="atividade16">Orientação em Monitorias de Ensino e Iniciação à Docência</label>
+                            <input type="hidden" name="atividades[15][tipo]" value="Atividades de Orientação" />
+                            <input type="hidden" name="atividades[15][descricao]"
+                                value="Orientação em Monitorias de Ensino e Iniciação à Docência" />
+                            <input type="number" class="form-control" name="atividades[15][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade16">Orientação de Trabalhos de Conclusão de Curso</label>
-                            <input type="number" class="form-control" id="atividade16" name="atividade16"
+                            <label for="atividade17">Orientação de Trabalhos de Conclusão de Curso</label>
+                            <input type="hidden" name="atividades[16][tipo]" value="Atividades de Orientação" />
+                            <input type="hidden" name="atividades[16][descricao]"
+                                value="Orientação de Trabalhos de Conclusão de Curso" />
+                            <input type="number" class="form-control" name="atividades[16][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade17">Orientação ou Coorientação de Mestrado ou Doutorado</label>
-                            <input type="number" class="form-control" id="atividade17" name="atividade17"
+                            <label for="atividade18">Orientação ou Coorientação de Mestrado ou Doutorado</label>
+                            <input type="hidden" name="atividades[17][tipo]" value="Atividades de Orientação" />
+                            <input type="hidden" name="atividades[17][descricao]"
+                                value="Orientação ou Coorientação de Mestrado ou Doutorado" />
+                            <input type="number" class="form-control" name="atividades[17][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade18">Participação na Elaboração e Revisão de Projetos Pedagógicos de
+                            <label for="atividade19">Participação na Elaboração e Revisão de Projetos Pedagógicos de
                                 Cursos</label>
-                            <input type="number" class="form-control" id="atividade18" name="atividade18"
+                            <input type="hidden" name="atividades[18][tipo]" value="Atividades de Orientação" />
+                            <input type="hidden" name="atividades[18][descricao]"
+                                value="Participação na Elaboração e Revisão de Projetos Pedagógicos de Cursos" />
+                            <input type="number" class="form-control" name="atividades[18][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                     </div>
@@ -244,406 +304,658 @@
                     <!-- Atividades de Pesquisa e Inovação -->
                     <div class="secao-atividade">
                         <h3 class="section-title">Atividades de Pesquisa e Inovação</h3>
+
                         <div class="atividade-row">
-                            <label for="atividade21">Coordenação e Participação como colaborador em Projeto de
+                            <label for="atividade20">Coordenação e Participação como colaborador em Projeto de
                                 Pesquisa</label>
-                            <input type="number" class="form-control" id="atividade21" name="atividade21"
+                            <input type="hidden" name="atividades[19][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[19][descricao]"
+                                value="Coordenação e Participação como colaborador em Projeto de Pesquisa" />
+                            <input type="number" class="form-control" name="atividades[19][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade22">Orientação de Aluno de Iniciação à Pesquisa Científica e/ou
+                            <label for="atividade21">Orientação de Aluno de Iniciação à Pesquisa Científica e/ou
                                 Tecnológica</label>
-                            <input type="number" class="form-control" id="atividade22" name="atividade22"
+                            <input type="hidden" name="atividades[20][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[20][descricao]"
+                                value="Orientação de Aluno de Iniciação à Pesquisa Científica e/ou Tecnológica" />
+                            <input type="number" class="form-control" name="atividades[20][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade23">Coordenação e/ou Participação de Grupo de Pesquisa Cadastrado no
+                            <label for="atividade22">Coordenação e/ou Participação de Grupo de Pesquisa Cadastrado no
                                 CNPq</label>
-                            <input type="number" class="form-control" id="atividade23" name="atividade23"
+                            <input type="hidden" name="atividades[21][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[21][descricao]"
+                                value="Coordenação e/ou Participação de Grupo de Pesquisa Cadastrado no CNPq" />
+                            <input type="number" class="form-control" name="atividades[21][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade24">Participação de Banca Examinadora de Tese de Doutorado e/ou
+                            <label for="atividade23">Participação de Banca Examinadora de Tese de Doutorado e/ou
                                 Dissertação de Mestrado e/ou Monografia de Especialização</label>
-                            <input type="number" class="form-control" id="atividade24" name="atividade24"
+                            <input type="hidden" name="atividades[22][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[22][descricao]"
+                                value="Participação de Banca Examinadora de Tese de Doutorado e/ou Dissertação de Mestrado e/ou Monografia de Especialização" />
+                            <input type="number" class="form-control" name="atividades[22][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade25">Participação de Banca Examinadora de Monografia de Graduação e/ou
+                            <label for="atividade24">Participação de Banca Examinadora de Monografia de Graduação e/ou
                                 Trabalho de Conclusão de Curso de Graduação ou de Curso Técnico</label>
-                            <input type="number" class="form-control" id="atividade25" name="atividade25"
+                            <input type="hidden" name="atividades[23][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[23][descricao]"
+                                value="Participação de Banca Examinadora de Monografia de Graduação e/ou Trabalho de Conclusão de Curso de Graduação ou de Curso Técnico" />
+                            <input type="number" class="form-control" name="atividades[23][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade26">Participação de Banca Examinadora de Qualificação de Mestrado ou
+                            <label for="atividade25">Participação de Banca Examinadora de Qualificação de Mestrado ou
                                 Doutorado</label>
-                            <input type="number" class="form-control" id="atividade26" name="atividade26"
+                            <input type="hidden" name="atividades[24][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[24][descricao]"
+                                value="Participação de Banca Examinadora de Qualificação de Mestrado ou Doutorado" />
+                            <input type="number" class="form-control" name="atividades[24][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade27">Preparação de Artigo Técnico-Científico a ser publicado em anais de
+                            <label for="atividade26">Preparação de Artigo Técnico-Científico a ser publicado em anais de
                                 Eventos Acadêmico-Científicos Locais, Regionais, Nacionais ou Internacionais</label>
-                            <input type="number" class="form-control" id="atividade27" name="atividade27"
+                            <input type="hidden" name="atividades[25][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[25][descricao]"
+                                value="Preparação de Artigo Técnico-Científico a ser publicado em anais de Eventos Acadêmico-Científicos Locais, Regionais, Nacionais ou Internacionais" />
+                            <input type="number" class="form-control" name="atividades[25][cargaHoraria]"
+                                placeholder="Carga horária" />
+                        </div>
+                        <div class="atividade-row">
+                            <label for="atividade27">Preparação de Artigo Técnico-Científico a ser publicado em
+                                periódico de circulação local ou nacional</label>
+                            <input type="hidden" name="atividades[26][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[26][descricao]"
+                                value="Preparação de Artigo Técnico-Científico a ser publicado em periódico de circulação local ou nacional" />
+                            <input type="number" class="form-control" name="atividades[26][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
                             <label for="atividade28">Preparação de Artigo Técnico-Científico a ser publicado em
-                                periódico de circulação local ou nacional</label>
-                            <input type="number" class="form-control" id="atividade28" name="atividade28"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade29">Preparação de Artigo Técnico-Científico a ser publicado em
                                 periódico indexado nacional ou internacional</label>
-                            <input type="number" class="form-control" id="atividade29" name="atividade29"
+                            <input type="hidden" name="atividades[27][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[27][descricao]"
+                                value="Preparação de Artigo Técnico-Científico a ser publicado em periódico indexado nacional ou internacional" />
+                            <input type="number" class="form-control" name="atividades[27][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade30">Preparação de Livro ou de Capítulo de Livro Didático, Cultural ou
+                            <label for="atividade29">Preparação de Livro ou de Capítulo de Livro Didático, Cultural ou
                                 Técnico; Produção de Relatório Técnico, Manual Técnico e/ou Didático com ISBN</label>
-                            <input type="number" class="form-control" id="atividade30" name="atividade30"
+                            <input type="hidden" name="atividades[28][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[28][descricao]"
+                                value="Preparação de Livro ou de Capítulo de Livro Didático, Cultural ou Técnico; Produção de Relatório Técnico, Manual Técnico e/ou Didático com ISBN" />
+                            <input type="number" class="form-control" name="atividades[28][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade31">Editoração de Revistas Científicas Locais, Regionais, Nacionais ou
+                            <label for="atividade30">Editoração de Revistas Científicas Locais, Regionais, Nacionais ou
                                 Internacionais</label>
-                            <input type="number" class="form-control" id="atividade31" name="atividade31"
+                            <input type="hidden" name="atividades[29][tipo]"
+                                value="Atividades de Pesquisa e Inovação""Editoração de Revistas Científicas" />
+                            <input type="hidden" name="atividades[29][descricao]"
+                                value="Editoração de Revistas Científicas Locais, Regionais, Nacionais ou Internacionais" />
+                            <input type="number" class="form-control" name="atividades[29][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade32">Editoração, Organização e/ou Tradução de Livros e/ou Periódicos
+                            <label for="atividade31">Editoração, Organização e/ou Tradução de Livros e/ou Periódicos
                                 Acadêmicos, Científicos ou Técnicos</label>
-                            <input type="number" class="form-control" id="atividade32" name="atividade32"
+                            <input type="hidden" name="atividades[30][tipo]"
+                                value="Atividades de Pesquisa e Inovação""Editoração, Organização e Tradução de Livros" />
+                            <input type="hidden" name="atividades[30][descricao]"
+                                value="Editoração, Organização e/ou Tradução de Livros e/ou Periódicos Acadêmicos, Científicos ou Técnicos" />
+                            <input type="number" class="form-control" name="atividades[30][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade33">Participação em Conselho Editorial Local, Regional, Nacional ou
+                            <label for="atividade32">Participação em Conselho Editorial Local, Regional, Nacional ou
                                 Internacional</label>
-                            <input type="number" class="form-control" id="atividade33" name="atividade33"
+                            <input type="hidden" name="atividades[31][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[31][descricao]"
+                                value="Participação em Conselho Editorial Local, Regional, Nacional ou Internacional" />
+                            <input type="number" class="form-control" name="atividades[31][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade34">Participação, como editor, membro de conselho e/ou parecerista de
+                            <label for="atividade33">Participação, como editor, membro de conselho e/ou parecerista de
                                 Publicações Acadêmico-Científicas</label>
-                            <input type="number" class="form-control" id="atividade34" name="atividade34"
+                            <input type="hidden" name="atividades[32][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[32][descricao]"
+                                value="Participação, como editor, membro de conselho e/ou parecerista de Publicações Acadêmico-Científicas" />
+                            <input type="number" class="form-control" name="atividades[32][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade35">Tradução de Artigo Didático, Cultural, Artístico ou Técnico</label>
-                            <input type="number" class="form-control" id="atividade35" name="atividade35"
+                            <label for="atividade34">Tradução de Artigo Didático, Cultural, Artístico ou Técnico</label>
+                            <input type="hidden" name="atividades[33][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[33][descricao]"
+                                value="Tradução de Artigo Didático, Cultural, Artístico ou Técnico" />
+                            <input type="number" class="form-control" name="atividades[33][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade36">Participação em Banco de Avaliadores de Pesquisa, Comitê ou
+                            <label for="atividade35">Participação em Banco de Avaliadores de Pesquisa, Comitê ou
                                 Comissão Científica</label>
-                            <input type="number" class="form-control" id="atividade36" name="atividade36"
+                            <input type="hidden" name="atividades[34][tipo]"
+                                value="Atividades de Pesquisa e Inovação"/>
+                            <input type="hidden" name="atividades[34][descricao]"
+                                value="Participação em Banco de Avaliadores de Pesquisa, Comitê ou Comissão Científica" />
+                            <input type="number" class="form-control" name="atividades[34][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade37">Consultor ad hoc na Análise de Projetos, em Seleção de
+                            <label for="atividade36">Consultor ad hoc na Análise de Projetos, em Seleção de
                                 Editais</label>
-                            <input type="number" class="form-control" id="atividade37" name="atividade37"
+                            <input type="hidden" name="atividades[35][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[35][descricao]"
+                                value="Consultor ad hoc na Análise de Projetos, em Seleção de Editais" />
+                            <input type="number" class="form-control" name="atividades[35][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade38">Consultor ad hoc, na Condição de Convidado, em Eventos
+                            <label for="atividade37">Consultor ad hoc, na Condição de Convidado, em Eventos
                                 Acadêmicos</label>
-                            <input type="number" class="form-control" id="atividade38" name="atividade38"
+                            <input type="hidden" name="atividades[36][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[36][descricao]"
+                                value="Consultor ad hoc, na Condição de Convidado, em Eventos Acadêmicos" />
+                            <input type="number" class="form-control" name="atividades[36][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade39">Coordenação ou Participação em Comissão Organizadora de Oficinas,
+                            <label for="atividade38">Coordenação ou Participação em Comissão Organizadora de Oficinas,
                                 Seminários e outros Eventos Científicos, Locais, Regionais, Nacionais ou
                                 Internacionais</label>
-                            <input type="number" class="form-control" id="atividade39" name="atividade39"
+                            <input type="hidden" name="atividades[37][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[37][descricao]"
+                                value="Coordenação ou Participação em Comissão Organizadora de Oficinas, Seminários e outros Eventos Científicos, Locais, Regionais, Nacionais ou Internacionais" />
+                            <input type="number" class="form-control" name="atividades[37][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade40">Participação como Conferencista Convidado em Eventos Científicos,
+                            <label for="atividade39">Participação como Conferencista Convidado em Eventos Científicos,
                                 Locais, Regionais, Nacionais ou Internacionais</label>
-                            <input type="number" class="form-control" id="atividade40" name="atividade40"
+                            <input type="hidden" name="atividades[38][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[38][descricao]"
+                                value="Participação como Conferencista Convidado em Eventos Científicos, Locais, Regionais, Nacionais ou Internacionais" />
+                            <input type="number" class="form-control" name="atividades[38][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade41">Participação em Eventos Acadêmicos-Científicos Locais, Regionais,
+                            <label for="atividade40">Participação em Eventos Acadêmicos-Científicos Locais, Regionais,
                                 Nacionais e Internacionais</label>
-                            <input type="number" class="form-control" id="atividade41" name="atividade41"
+                            <input type="hidden" name="atividades[39][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[39][descricao]"
+                                value="Participação em Eventos Acadêmicos-Científicos Locais, Regionais, Nacionais e Internacionais" />
+                            <input type="number" class="form-control" name="atividades[39][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade42">Participação em Visita ou Missão Internacional, Devidamente
+                            <label for="atividade41">Participação em Visita ou Missão Internacional, Devidamente
                                 autorizada pela Instituição para Desenvolver Atividades Acadêmicas</label>
-                            <input type="number" class="form-control" id="atividade42" name="atividade42"
+                            <input type="hidden" name="atividades[40][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[40][descricao]"
+                                value="Participação em Visita ou Missão Internacional, Devidamente autorizada pela Instituição para Desenvolver Atividades Acadêmicas" />
+                            <input type="number" class="form-control" name="atividades[40][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade43">Desenvolvimento e Registro de Propriedades Intelectuais ou Inovação
+                            <label for="atividade42">Desenvolvimento e Registro de Propriedades Intelectuais ou Inovação
                                 Tecnológica Cadastradas no NITTEC, tais como Elaboração, Submissão e Registro de
                                 Patentes, Registro de Software, Desenho Industrial ou Projeto Piloto, Entre
                                 Outras</label>
-                            <input type="number" class="form-control" id="atividade43" name="atividade43"
+                            <input type="hidden" name="atividades[41][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[41][descricao]"
+                                value="Desenvolvimento e Registro de Propriedades Intelectuais ou Inovação Tecnológica Cadastradas no NITTEC, tais como Elaboração, Submissão e Registro de Patentes, Registro de Software, Desenho Industrial ou Projeto Piloto, Entre Outras" />
+                            <input type="number" class="form-control" name="atividades[41][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade44">Desenvolvimento de Aplicativos Computacionais, Registrados ou
+                            <label for="atividade43">Desenvolvimento de Aplicativos Computacionais, Registrados ou
                                 Publicados em Livros ou Revistas Indexadas</label>
-                            <input type="number" class="form-control" id="atividade44" name="atividade44"
+                            <input type="hidden" name="atividades[42][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[42][descricao]"
+                                value="Desenvolvimento de Aplicativos Computacionais, Registrados ou Publicados em Livros ou Revistas Indexadas" />
+                            <input type="number" class="form-control" name="atividades[42][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade45">Organização e/ou Coordenação de Pesquisa de Campo
+                            <label for="atividade44">Organização e/ou Coordenação de Pesquisa de Campo
                                 Institucional</label>
-                            <input type="number" class="form-control" id="atividade45" name="atividade45"
+                            <input type="hidden" name="atividades[43][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[43][descricao]"
+                                value="Organização e/ou Coordenação de Pesquisa de Campo Institucional" />
+                            <input type="number" class="form-control" name="atividades[43][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
                         <div class="atividade-row">
-                            <label for="atividade46">Coordenação de Institutos Nacionais de Ciência e Tecnologia e
+                            <label for="atividade45">Coordenação de Institutos Nacionais de Ciência e Tecnologia e
                                 Inovação Externos</label>
-                            <input type="number" class="form-control" id="atividade46" name="atividade46"
+                            <input type="hidden" name="atividades[44][tipo]"
+                                value="Atividades de Pesquisa e Inovação" />
+                            <input type="hidden" name="atividades[44][descricao]"
+                                value="Coordenação de Institutos Nacionais de Ciência e Tecnologia e Inovação Externos" />
+                            <input type="number" class="form-control" name="atividades[44][cargaHoraria]"
                                 placeholder="Carga horária" />
                         </div>
-                    </div>
 
-                    <!-- Atividades de Extensão -->
-                    <div class="secao-atividade">
-                        <h3 class="section-title">Atividades de Extensão</h3>
-                        <div class="atividade-row">
-                            <label for="atividade47">Coordenação e Participação como Colaborador em Programas e Projetos
-                                de Extensão</label>
-                            <input type="number" class="form-control" id="atividade47" name="atividade47"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade48">Coordenação de Cursos e Eventos de Extensão</label>
-                            <input type="number" class="form-control" id="atividade48" name="atividade48"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade49">Publicação de Pôsters, Resumos e/ou Artigos Resultantes de Projetos
-                                de Extensão, em Periódicos de Extensão</label>
-                            <input type="number" class="form-control" id="atividade49" name="atividade49"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade50">Prestação de Serviços: Conjunto de Ações, tais como Consultorias,
-                                Laudos Técnicos e Assessorias, vinculadas às Áreas de Atuação do IF Sudeste MG</label>
-                            <input type="number" class="form-control" id="atividade50" name="atividade50"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade51">Atividades Resultantes de Projetos e Programas de Extensão, Tais
-                                como Apresentações em Eventos e Publicações de Caráter Extensionista</label>
-                            <input type="number" class="form-control" id="atividade51" name="atividade51"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade52">Organização e/ou Coordenação de Visitas Técnicas Institucionais de
-                                Caráter Extensionista</label>
-                            <input type="number" class="form-control" id="atividade52" name="atividade52"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade53">Coordenação e/ou Participação de Grupos de Estudos em Atividades de
-                                Extensão Cadastrados na Diretoria de Extensão</label>
-                            <input type="number" class="form-control" id="atividade53" name="atividade53"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade54">Relatório, Parcial ou Final, de Atividades Locais, Regionais,
-                                Nacionais ou Internacionais de Extensão</label>
-                            <input type="number" class="form-control" id="atividade54" name="atividade54"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade55">Orientação de Alunos em Cumprimento de Atividades e/ou de Projetos
-                                de Extensão</label>
-                            <input type="number" class="form-control" id="atividade55" name="atividade55"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade56">Coordenação de Núcleos de Estudos Interdisciplinares</label>
-                            <input type="number" class="form-control" id="atividade56" name="atividade56"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade57">Tutoria de Empresas Juniores</label>
-                            <input type="number" class="form-control" id="atividade57" name="atividade57"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade58">Atividades em Cursos e Eventos de Extensão Aprovados e Cadastrados
-                                na PROEX ou Diretorias de Extensão</label>
-                            <input type="number" class="form-control" id="atividade58" name="atividade58"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade59">Preparação de Trabalho a ser Apresentado em Eventos
-                                Artísticos-Culturais</label>
-                            <input type="number" class="form-control" id="atividade59" name="atividade59"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade60">Editoração de Revistas Culturais, de Extensão Locais, Regionais,
-                                Nacionais ou Internacionais</label>
-                            <input type="number" class="form-control" id="atividade60" name="atividade60"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade61">Participação como Conferencista Convidado em Eventos Desportivos ou
-                                Artístico-Culturais, Locais, Regionais, Nacionais ou Internacionais</label>
-                            <input type="number" class="form-control" id="atividade61" name="atividade61"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade62">Atividades de Assessoria, Minicurso em Congresso, Consultoria,
-                                Perícia ou Sindicância cadastradas na PROEX e/ou Diretorias de Extensão</label>
-                            <input type="number" class="form-control" id="atividade62" name="atividade62"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade63">Participação em Concertos, Recitais e Apresentações Diversas como
-                                Instrumentista, Orquestrador, Arranjador, Compositor, Regente ou Solista</label>
-                            <input type="number" class="form-control" id="atividade63" name="atividade63"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade64">Produção Artística em Mídia: Documentários e/ou Material Didático,
-                                Programa de Televisão, Rádio, Vídeo ou Videoconferência, Gravação e Edição de CD, DVD ou
-                                Outras Mídias</label>
-                            <input type="number" class="form-control" id="atividade64" name="atividade64"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade65">Direção e Montagem de Espetáculos Musicais, Teatrais, Dança e
-                                Exposições Apresentadas ao Público</label>
-                            <input type="number" class="form-control" id="atividade65" name="atividade65"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade66">Outras Atividades de Natureza Similar</label>
-                            <input type="number" class="form-control" id="atividade66" name="atividade66"
-                                placeholder="Carga horária" />
-                        </div>
-                    </div>
 
-                    <!-- Atividades de Gestão Institucional e Representações -->
-                    <div class="secao-atividade">
-                        <h3 class="section-title">Atividades de Gestão Institucional e Representações</h3>
-                        <div class="atividade-row">
-                            <label for="atividade67">Diretorias Sistêmicas, Chefias e Coordenadorias e Ensino, Pesquisa
-                                e Extensão, Planejamento Institucional</label>
-                            <input type="number" class="form-control" id="atividade67" name="atividade67"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade68">Atividades de Coordenação de Curso</label>
-                            <input type="number" class="form-control" id="atividade68" name="atividade68"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade69">Atividades de Chefia ou Coordenação de Laboratório de Pesquisa,
-                                Ensino, Desenvolvimento Tecnológico e/ou Inovação</label>
-                            <input type="number" class="form-control" id="atividade69" name="atividade69"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade70">Atividades Referentes aos Processos de Cotação, Compra, Conferência
-                                de Materiais de Processos Licitatórios</label>
-                            <input type="number" class="form-control" id="atividade70" name="atividade70"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade71">Atividades não Remuneradas de Participação em Comissões
-                                Permanentes, Comitês, Fóruns e Representações Internas e Externas ao IF Sudeste
-                                MG</label>
-                            <input type="number" class="form-control" id="atividade71" name="atividade71"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade72">Representação Acadêmica e Participação em Órgãos de Formulação e
-                                Execução de Políticas Públicas de Ensino, Ciência e Tecnologia e de Políticas
-                                Sociais</label>
-                            <input type="number" class="form-control" id="atividade72" name="atividade72"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade73">Atividades de Participação em Comissões Temporárias</label>
-                            <input type="number" class="form-control" id="atividade73" name="atividade73"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade74">Atividades de Representação Interna tais como Colegiados,
-                                Conselhos, Núcleos e Docentes Estruturantes</label>
-                            <input type="number" class="form-control" id="atividade74" name="atividade74"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade75">Atividade de Representação Externa</label>
-                            <input type="number" class="form-control" id="atividade75" name="atividade75"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade76">Representação na Entidade Sindical ou de Associação de Docentes que
-                                Legalmente Representa a Categoria</label>
-                            <input type="number" class="form-control" id="atividade76" name="atividade76"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade77">Atividades de Participação em Banca Examinadora de Concurso Público
-                                para Professor Efetivo, Processos Simplificados de Docentes, bem Como Bancas de Seleção
-                                de Estagiários</label>
-                            <input type="number" class="form-control" id="atividade77" name="atividade77"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade78">Participação em Banca Examinadora de Seleção de Doutorado, Mestrado
-                                e Especialização</label>
-                            <input type="number" class="form-control" id="atividade78" name="atividade78"
-                                placeholder="Carga horária" />
-                        </div>
-                    </div>
+                        <!-- Atividades de Extensão -->
+                        <div class="secao-atividade">
+                            <h3 class="section-title">Atividades de Extensão</h3>
+                            <div class="atividade-row">
+                                <label for="atividade46">Coordenação e Participação como Colaborador em Programas e
+                                    Projetos de Extensão</label>
+                                <input type="hidden" name="atividades[45][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[45][descricao]"
+                                    value="Coordenação e Participação como Colaborador em Programas e Projetos de Extensão" />
+                                <input type="number" class="form-control" name="atividades[45][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade47">Coordenação de Cursos e Eventos de Extensão</label>
+                                <input type="hidden" name="atividades[46][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[46][descricao]"
+                                    value="Coordenação de Cursos e Eventos de Extensão" />
+                                <input type="number" class="form-control" name="atividades[46][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade48">Publicação de Pôsters, Resumos e/ou Artigos Resultantes de
+                                    Projetos de Extensão, em Periódicos de Extensão</label>
+                                <input type="hidden" name="atividades[47][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[47][descricao]"
+                                    value="Publicação de Pôsters, Resumos e/ou Artigos Resultantes de Projetos de Extensão, em Periódicos de Extensão" />
+                                <input type="number" class="form-control" name="atividades[47][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade49">Prestação de Serviços: Conjunto de Ações, tais como
+                                    Consultorias, Laudos Técnicos e Assessorias, vinculadas às Áreas de Atuação do IF
+                                    Sudeste MG</label>
+                                <input type="hidden" name="atividades[48][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[48][descricao]"
+                                    value="Prestação de Serviços: Conjunto de Ações, tais como Consultorias, Laudos Técnicos e Assessorias, vinculadas às Áreas de Atuação do IF Sudeste MG" />
+                                <input type="number" class="form-control" name="atividades[48][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade50">Atividades Resultantes de Projetos e Programas de Extensão,
+                                    Tais como Apresentações em Eventos e Publicações de Caráter Extensionista</label>
+                                <input type="hidden" name="atividades[49][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[49][descricao]"
+                                    value="Atividades Resultantes de Projetos e Programas de Extensão, Tais como Apresentações em Eventos e Publicações de Caráter Extensionista" />
+                                <input type="number" class="form-control" name="atividades[49][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade51">Organização e/ou Coordenação de Visitas Técnicas Institucionais
+                                    de Caráter Extensionista</label>
+                                <input type="hidden" name="atividades[50][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[50][descricao]"
+                                    value="Organização e/ou Coordenação de Visitas Técnicas Institucionais de Caráter Extensionista" />
+                                <input type="number" class="form-control" name="atividades[50][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade52">Coordenação e/ou Participação de Grupos de Estudos em
+                                    Atividades de Extensão Cadastrados na Diretoria de Extensão</label>
+                                <input type="hidden" name="atividades[51][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[51][descricao]"
+                                    value="Coordenação e/ou Participação de Grupos de Estudos em Atividades de Extensão Cadastrados na Diretoria de Extensão" />
+                                <input type="number" class="form-control" name="atividades[51][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade53">Relatório, Parcial ou Final, de Atividades Locais, Regionais,
+                                    Nacionais ou Internacionais de Extensão</label>
+                                <input type="hidden" name="atividades[52][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[52][descricao]"
+                                    value="Relatório, Parcial ou Final, de Atividades Locais, Regionais, Nacionais ou Internacionais de Extensão" />
+                                <input type="number" class="form-control" name="atividades[52][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade54">Orientação de Alunos em Cumprimento de Atividades e/ou de
+                                    Projetos
+                                    de Extensão</label>
+                                <input type="hidden" name="atividades[53][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[53][descricao]" value="Orientação de Alunos em Cumprimento de Atividades e/ou de Projetos de Extensão" />
+                                <input type="number" class="form-control" name="atividades[53][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade55">Coordenação de Núcleos de Estudos Interdisciplinares</label>
+                                <input type="hidden" name="atividades[54][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[54][descricao]"
+                                    value="Coordenação de Núcleos de Estudos Interdisciplinares" />
+                                <input type="number" class="form-control" name="atividades[54][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+                            <div class="atividade-row">
+                                <label for="atividade56">Tutoria de Empresas Juniores</label>
+                                <input type="hidden" name="atividades[55][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[55][descricao]"
+                                    value="Tutoria de Empresas Juniores" />
+                                <input type="number" class="form-control" name="atividades[55][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
 
-                    <!-- Atividades de Qualificação e Capacitação -->
-                    <div class="secao-atividade">
-                        <h3 class="section-title">Atividades de Qualificação e Capacitação</h3>
-                        <div class="atividade-row">
-                            <label for="atividade79">Curso de Graduação</label>
-                            <input type="number" class="form-control" id="atividade79" name="atividade79"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade80">Curso de Pós-Graduação</label>
-                            <input type="number" class="form-control" id="atividade80" name="atividade80"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade81">Curso de Mestrado</label>
-                            <input type="number" class="form-control" id="atividade81" name="atividade81"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade82">Curso de Doutorado</label>
-                            <input type="number" class="form-control" id="atividade82" name="atividade82"
-                                placeholder="Carga horária" />
-                        </div>
-                        <div class="atividade-row">
-                            <label for="atividade83">Curso de Capacitação</label>
-                            <input type="number" class="form-control" id="atividade83" name="atividade83"
-                                placeholder="Carga horária" />
-                        </div>
-                    </div>
+                            <div class="atividade-row">
+                                <label for="atividade57">Atividades em Cursos e Eventos de Extensão
+                                    Aprovados e Cadastrados na PROEX ou Diretorias de Extensão</label>
+                                <input type="hidden" name="atividades[56][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[56][descricao]"
+                                    value="Atividades em Cursos e Eventos de Extensão Aprovados e Cadastrados na PROEX ou Diretorias de Extensão" />
+                                <input type="number" class="form-control" name="atividades[56][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
 
-                    <!-- Caixa de texto para Observação / Justificativa -->
-                    <div class="secao-atividade">
-                        <h3 class="section-title">OBSERVAÇÃO / JUSTIFICATIVA</h3>
-                        <textarea class="form-control" id="observacao" name="observacao" rows="4"
-                            placeholder="Digite sua justificativa ou observação aqui..."></textarea>
-                    </div>
-                </div>
+                            <div class="atividade-row">
+                                <label for="atividade58">Preparação de Trabalho a ser Apresentado em Eventos
+                                    Artísticos-Culturais</label>
+                                <input type="hidden" name="atividades[57][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[57][descricao]"
+                                    value="Preparação de Trabalho a ser Apresentado em Eventos Artísticos-Culturais" />
+                                <input type="number" class="form-control" name="atividades[57][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-submit">Enviar</button>
-                </div>
+                            <div class="atividade-row">
+                                <label for="atividade59">Editoração de Revistas Culturais, de Extensão
+                                    Locais, Regionais, Nacionais ou Internacionais</label>
+                                <input type="hidden" name="atividades[58][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[58][descricao]"
+                                    value="Editoração de Revistas Culturais, de Extensão Locais, Regionais, Nacionais ou Internacionais" />
+                                <input type="number" class="form-control" name="atividades[58][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <div class="atividade-row">
+                                <label for="atividade60">Participação como Conferencista Convidado em
+                                    Eventos Desportivos ou Artístico-Culturais, Locais, Regionais, Nacionais ou
+                                    Internacionais</label>
+                                <input type="hidden" name="atividades[59][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[59][descricao]"
+                                    value="Participação como Conferencista Convidado em Eventos Desportivos ou Artístico-Culturais, Locais, Regionais, Nacionais ou Internacionais" />
+                                <input type="number" class="form-control" name="atividades[59][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <div class="atividade-row">
+                                <label for="atividade61">Atividades de Assessoria, Minicurso em Congresso,
+                                    Consultoria, Perícia ou Sindicância cadastradas na PROEX e/ou Diretorias de
+                                    Extensão</label>
+                                <input type="hidden" name="atividades[60][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[60][descricao]"
+                                    value="Atividades de Assessoria, Minicurso em Congresso, Consultoria, Perícia ou Sindicância cadastradas na PROEX e/ou Diretorias de Extensão" />
+                                <input type="number" class="form-control" name="atividades[60][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <div class="atividade-row">
+                                <label for="atividade62">Participação em Concertos, Recitais e Apresentações
+                                    Diversas como Instrumentista, Orquestrador, Arranjador, Compositor, Regente ou
+                                    Solista</label>
+                                <input type="hidden" name="atividades[61][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[61][descricao]"
+                                    value="Participação em Concertos, Recitais e Apresentações Diversas como Instrumentista, Orquestrador, Arranjador, Compositor, Regente ou Solista" />
+                                <input type="number" class="form-control" name="atividades[61][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <div class="atividade-row">
+                                <label for="atividade63">Produção Artística em Mídia: Documentários e/ou
+                                    Material Didático, Programa de Televisão, Rádio, Vídeo ou Videoconferência, Gravação
+                                    e Edição de CD, DVD ou Outras Mídias</label>
+                                <input type="hidden" name="atividades[62][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[62][descricao]"
+                                    value="Produção Artística em Mídia: Documentários e/ou Material Didático, Programa de Televisão, Rádio, Vídeo ou Videoconferência, Gravação e Edição de CD, DVD ou Outras Mídias" />
+                                <input type="number" class="form-control" name="atividades[62][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <div class="atividade-row">
+                                <label for="atividade64">Direção e Montagem de Espetáculos Musicais,
+                                    Teatrais, Dança e Exposições Apresentadas ao Público</label>
+                                <input type="hidden" name="atividades[63][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[63][descricao]"
+                                    value="Direção e Montagem de Espetáculos Musicais, Teatrais, Dança e Exposições Apresentadas ao Público" />
+                                <input type="number" class="form-control" name="atividades[63][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <div class="atividade-row">
+                                <label for="atividade65">Outras Atividades de Natureza Similar</label>
+                                <input type="hidden" name="atividades[64][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[64][descricao]"
+                                    value="Outras Atividades de Natureza Similar" />
+                                <input type="number" class="form-control" name="atividades[64][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <div class="atividade-row">
+                                <label for="atividade66">Outras Atividades de Natureza Similar</label>
+                                <input type="hidden" name="atividades[65][tipo]" value="Atividades de Extensão" />
+                                <input type="hidden" name="atividades[65][descricao]"
+                                    value="Outras Atividades de Natureza Similar" />
+                                <input type="number" class="form-control" name="atividades[65][cargaHoraria]"
+                                    placeholder="Carga horária" />
+                            </div>
+
+                            <!-- Atividades de Gestão Institucional e Representações -->
+                            <div class="secao-atividade">
+                                <h3 class="section-title">Atividades de Gestão Institucional e Representações</h3>
+                                <div class="atividade-row">
+                                    <label for="atividade67">Diretorias Sistêmicas, Chefias e Coordenadorias e Ensino,
+                                        Pesquisa e Extensão, Planejamento Institucional</label>
+                                    <input type="hidden" name="atividades[66][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[66][descricao]"
+                                        value="Diretorias Sistêmicas, Chefias e Coordenadorias e Ensino, Pesquisa e Extensão, Planejamento Institucional" />
+                                    <input type="number" class="form-control" name="atividades[66][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade68">Atividades de Coordenação de Curso</label>
+                                    <input type="hidden" name="atividades[67][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[67][descricao]"
+                                        value="Atividades de Coordenação de Curso" />
+                                    <input type="number" class="form-control" name="atividades[67][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade69">Atividades de Chefia ou Coordenação de Laboratório de
+                                        Pesquisa, Ensino, Desenvolvimento Tecnológico e/ou Inovação</label>
+                                    <input type="hidden" name="atividades[68][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[68][descricao]"
+                                        value="Atividades de Chefia ou Coordenação de Laboratório de Pesquisa, Ensino, Desenvolvimento Tecnológico e/ou Inovação" />
+                                    <input type="number" class="form-control" name="atividades[68][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade70">Atividades Referentes aos Processos de Cotação, Compra,
+                                        Conferência de Materiais de Processos Licitatórios</label>
+                                    <input type="hidden" name="atividades[69][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[69][descricao]"
+                                        value="Atividades Referentes aos Processos de Cotação, Compra, Conferência de Materiais de Processos Licitatórios" />
+                                    <input type="number" class="form-control" name="atividades[69][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade71">Atividades não Remuneradas de Participação em Comissões
+                                        Permanentes, Comitês, Fóruns e Representações Internas e Externas ao IF Sudeste
+                                        MG</label>
+                                    <input type="hidden" name="atividades[70][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[70][descricao]"
+                                        value="Atividades não Remuneradas de Participação em Comissões Permanentes, Comitês, Fóruns e Representações Internas e Externas ao IF Sudeste MG" />
+                                    <input type="number" class="form-control" name="atividades[70][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade72">Representação Acadêmica e Participação em Órgãos de
+                                        Formulação e Execução de Políticas Públicas de Ensino, Ciência e Tecnologia e de
+                                        Políticas Sociais</label>
+                                    <input type="hidden" name="atividades[71][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[71][descricao]"
+                                        value="Representação Acadêmica e Participação em Órgãos de Formulação e Execução de Políticas Públicas de Ensino, Ciência e Tecnologia e de Políticas Sociais" />
+                                    <input type="number" class="form-control" name="atividades[71][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade73">Atividades de Participação em Comissões Temporárias</label>
+                                    <input type="hidden" name="atividades[72][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[72][descricao]"
+                                        value="Atividades de Participação em Comissões Temporárias" />
+                                    <input type="number" class="form-control" name="atividades[72][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade74">Atividades de Representação Interna tais como Colegiados,
+                                        Conselhos, Núcleos e Docentes Estruturantes</label>
+                                    <input type="hidden" name="atividades[73][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[73][descricao]"
+                                        value="Atividades de Representação Interna tais como Colegiados, Conselhos, Núcleos e Docentes Estruturantes" />
+                                    <input type="number" class="form-control" name="atividades[73][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade75">Atividade de Representação Externa</label>
+                                    <input type="hidden" name="atividades[74][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[74][descricao]"
+                                        value="Atividade de Representação Externa" />
+                                    <input type="number" class="form-control" name="atividades[74][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade76">Representação na Entidade Sindical ou de Associação de
+                                        Docentes que Legalmente Representa a Categoria</label>
+                                    <input type="hidden" name="atividades[75][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[75][descricao]"
+                                        value="Representação na Entidade Sindical ou de Associação de Docentes que Legalmente Representa a Categoria" />
+                                    <input type="number" class="form-control" name="atividades[75][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade77">Atividades de Participação em Banca Examinadora de Concurso
+                                        Público para Professor Efetivo, Processos Simplificados de Docentes, bem Como
+                                        Bancas de Seleção de Estagiários</label>
+                                    <input type="hidden" name="atividades[76][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[76][descricao]"
+                                        value="Atividades de Participação em Banca Examinadora de Concurso Público para Professor Efetivo, Processos Simplificados de Docentes, bem Como Bancas de Seleção de Estagiários" />
+                                    <input type="number" class="form-control" name="atividades[76][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade78">Participação em Banca Examinadora de Seleção de Doutorado,
+                                        Mestrado e Especialização</label>
+                                    <input type="hidden" name="atividades[77][tipo]"
+                                        value="Atividades de Gestão Institucional e Representações" />
+                                    <input type="hidden" name="atividades[77][descricao]"
+                                        value="Participação em Banca Examinadora de Seleção de Doutorado, Mestrado e Especialização" />
+                                    <input type="number" class="form-control" name="atividades[77][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                            </div>
+
+                            <!-- Atividades de Qualificação e Capacitação -->
+                            <div class="secao-atividade">
+                                <h3 class="section-title">Atividades de Qualificação e Capacitação</h3>
+                                <div class="atividade-row">
+                                    <label for="atividade79">Curso de Graduação</label>
+                                    <input type="hidden" name="atividades[78][tipo]"
+                                        value="Atividades de Qualificação e Capacitação" />
+                                    <input type="hidden" name="atividades[78][descricao]" value="Curso de Graduação" />
+                                    <input type="number" class="form-control" name="atividades[78][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade80">Curso de Pós-Graduação</label>
+                                    <input type="hidden" name="atividades[79][tipo]"
+                                        value="Atividades de Qualificação e Capacitação" />
+                                    <input type="hidden" name="atividades[79][descricao]"
+                                        value="Curso de Pós-Graduação" />
+                                    <input type="number" class="form-control" name="atividades[79][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade81">Curso de Mestrado</label>
+                                    <input type="hidden" name="atividades[80][tipo]"
+                                        value="Atividades de Qualificação e Capacitação" />
+                                    <input type="hidden" name="atividades[80][descricao]" value="Curso de Mestrado" />
+                                    <input type="number" class="form-control" name="atividades[80][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade82">Curso de Doutorado</label>
+                                    <input type="hidden" name="atividades[81][tipo]"
+                                        value="Atividades de Qualificação e Capacitação" />
+                                    <input type="hidden" name="atividades[81][descricao]" value="Curso de Doutorado" />
+                                    <input type="number" class="form-control" name="atividades[81][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                                <div class="atividade-row">
+                                    <label for="atividade83">Curso de Capacitação</label>
+                                    <input type="hidden" name="atividades[82][tipo]"
+                                        value="Atividades de Qualificação e Capacitação" />
+                                    <input type="hidden" name="atividades[82][descricao]"
+                                        value="Curso de Capacitação" />
+                                    <input type="number" class="form-control" name="atividades[82][cargaHoraria]"
+                                        placeholder="Carga horária" />
+                                </div>
+                            </div>
+
+
+                            <!-- Caixa de texto para Observação / Justificativa -->
+                            <div class="secao-atividade">
+                                <h3 class="section-title">OBSERVAÇÃO / JUSTIFICATIVA</h3>
+                                <textarea class="form-control" id="observacao" name="observacao" rows="4"
+                                    placeholder="Digite sua justificativa ou observação aqui..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-submit">Enviar</button>
+                        </div>
             </form>
         </div>
     </div>
@@ -654,29 +966,44 @@
 
     <script>
         // Função para adicionar disciplina
-        function adicionarDisciplina() {
-            const disciplinaContainer = document.getElementById('disciplinas-lista');
-            const disciplinaDiv = document.createElement('div');
-            disciplinaDiv.classList.add('disciplina-row');
+function adicionarDisciplina() {
+    const disciplinaContainer = document.getElementById('disciplinas-lista');
 
-            disciplinaDiv.innerHTML = `
-                <label for="disciplinaNome">Nome da Disciplina</label>
-                <input type="text" class="form-control" name="disciplinaNome[]" placeholder="Nome da Disciplina" required />
-                
-                <label for="disciplinaCargaHoraria">Carga Horária</label>
-                <input type="number" class="form-control" name="disciplinaCargaHoraria[]" placeholder="Carga horária" required />
-                
-                <button type="button" class="btn-delete" onclick="removerDisciplina(this)">Excluir</button>
-            `;
+    // Determinar o próximo índice disponível
+    const proximoIndice = disciplinaContainer.children.length + 83; // Como o último foi 82, o próximo será 83
 
-            disciplinaContainer.appendChild(disciplinaDiv);
-        }
+    const disciplinaDiv = document.createElement('div');
+    disciplinaDiv.classList.add('disciplina-row');
 
-        // Função para remover disciplina
-        function removerDisciplina(button) {
-            const disciplinaDiv = button.parentElement;
-            disciplinaDiv.remove();
-        }
+    disciplinaDiv.innerHTML = `
+        <label for="disciplinaNome">Nome da Disciplina</label>
+        <input type="hidden" name="atividades[${proximoIndice}][tipo]" value="Disciplina" />
+        <input type="text" class="form-control" name="atividades[${proximoIndice}][descricao]" placeholder="Nome da Disciplina" required />
+
+        <label for="disciplinaCargaHoraria">Carga Horária</label>
+        <input type="number" class="form-control" name="atividades[${proximoIndice}][cargaHoraria]" placeholder="Carga horária" required />
+        
+        <button type="button" class="btn-delete" onclick="removerDisciplina(this)">Excluir</button>
+    `;
+
+    disciplinaContainer.appendChild(disciplinaDiv);
+}
+
+// Função para remover disciplina
+function removerDisciplina(button) {
+    const disciplinaDiv = button.parentElement;
+    disciplinaDiv.remove();
+}
+ // Função para inicializar todas as cargas horárias com 0
+        function inicializarCargasHorarias() {
+            const inputsCargaHoraria = document.querySelectorAll('input[type="number"]');
+            inputsCargaHoraria.forEach(input => {
+                input.value = 0;
+            });
+}
+
+// Inicializar cargas horárias quando a página for carregada
+        document.addEventListener('DOMContentLoaded', inicializarCargasHorarias);
     </script>
 </body>
 

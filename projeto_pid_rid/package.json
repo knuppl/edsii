@@ -16,6 +16,7 @@
     "express-session": "^1.18.1",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
+    "method-override": "^3.0.0",
     "mongodb": "^6.13.0",
     "morgan": "~1.9.1",
     "projeto-pid-rid": "file:"
@@ -27,6 +28,7 @@
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.1",
     "@types/jest": "^29.5.14",
+    "@types/method-override": "^3.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.5",
     "jest": "^29.7.0",

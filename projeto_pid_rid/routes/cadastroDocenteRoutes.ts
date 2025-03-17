@@ -26,7 +26,13 @@ router.get('/login', (req: Request, res: Response) => {
 });
 
 // Rota para o login (POST)
-router.post('/login', docenteController.login);
+router.post('/login', (req, res) => {
+  // Chama o método login e trata os erros com .catch()
+  docenteController.login(req, res).catch((err) => {
+    console.error(err);
+    res.status(500).send('Erro interno do servidor');
+  });
+});
 
 // Substitua a chamada para mostrarPIDs pela chamada para listar no CadastroPidController
 router.get('/pids', cadastroPidController.listar);

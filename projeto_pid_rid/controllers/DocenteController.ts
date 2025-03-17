@@ -41,30 +41,27 @@ class DocenteController {
         }
     }
 
-    async login(req: Request, res: Response): Promise<void> {
-        const { usuario, senha } = req.body; // Pegando os dados do formulário
+    async login(req: Request, res: Response) {
+        const { usuario, senha } = req.body;
+      
+        const docenteMongo = new DocenteMongo();
+        const docente = await docenteMongo.consultaPorUsuario(usuario);
+      
+        if (docente) {
+            const senhaValida = (senha === docente.getSenha());
     
-        try {
-            const docenteMongo = new DocenteMongo();
-            const docente = await docenteMongo.consultaPorUsuario(usuario); // Use consulta para encontrar o docente
-    
-            if (docente) {
-                const senhaValida = (senha === docente.getSenha()); // Comparando a senha sem criptografia
-    
-                if (senhaValida) {
-                    // Redireciona para a página de PIDs, passando o email do docente (ou outro identificador)
-                    res.redirect(`/docente/pids?docenteEmail=${docente.getEmail()}`);
-                } else {
-                    res.render('index', { errorMessage: 'Senha incorreta!' });
-                }
-            } else {
-                res.render('index', { errorMessage: 'Usuário não encontrado!' });
-            }
-        } catch (error) {
-            console.error(error);
-            res.render('index', { errorMessage: 'Erro ao realizar o login!' });
+            if(senhaValida){
+            (req.session as any).docente = {
+            cpf: docente.getCpf(),
+            nome: docente.getNome(),
+            email: docente.getEmail(),
+          };
+          res.redirect(`/docente/pids?docenteEmail=${docente.getEmail()}`);
         }
-    }
+        } else {
+          return res.status(401).send('Credenciais inválidas');
+        }
+      }  
 
     // // Página para exibir os PIDs cadastrados do docente
     // async mostrarPIDs(req: Request, res: Response): Promise<void> {

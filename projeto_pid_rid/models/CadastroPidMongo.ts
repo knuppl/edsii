@@ -7,6 +7,7 @@ export class CadastroPidMongo {
 
     // Converte um CadastroPid para um formato compatível com MongoDB
     private static toDBObject(pid: CadastroPid) {
+        console.log("Convertendo PID para objeto MongoDB:", JSON.stringify(pid, null, 2));
         return {
             docenteId: pid.getDocenteId(),
             ano: pid.getAno(),
@@ -30,6 +31,17 @@ export class CadastroPidMongo {
     async cria(pid: CadastroPid): Promise<void> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
+
+        const existente = await collection.findOne({
+            docenteId: pid.getDocenteId(),
+            ano: pid.getAno(),
+            semestre: pid.getSemestre(),
+        })
+
+        if(existente){
+            throw new Error("Já existe um PID cadastrado para este docente no mesmo semestre e ano letivo.");
+
+        }
         await collection.insertOne(CadastroPidMongo.toDBObject(pid));
     }
 
@@ -43,6 +55,12 @@ export class CadastroPidMongo {
     static async buscarPIDsPorCPF(cpf: string): Promise<any[]> {
         const db = await connectDB(); // Conecta ao banco de dados
         const pids = await db.collection('pids').find({ cpf }).toArray(); // Busca os PIDs por CPF
+        return pids;
+    }
+
+    static async buscarPIDsPorEmail(email: string): Promise<any[]> {
+        const db = await connectDB(); // Conecta ao banco de dados
+        const pids = await db.collection('pids').find({ docenteId: email }).toArray(); // Busca os PIDs por email
         return pids;
     }
 
@@ -84,4 +102,17 @@ export class CadastroPidMongo {
         const collection = db.collection(this.collectionName);
         return await collection.countDocuments();
     }
+
+    async buscarPid(docenteEmail: string, ano: number, semestre: number): Promise<CadastroPid | null> {
+        const db = await connectDB();
+        const collection = db.collection(this.collectionName);
+    
+        const pid = await collection.findOne({
+            docenteId: docenteEmail,
+            ano: ano,
+            semestre: semestre
+        });
+    
+        return pid ? CadastroPidMongo.fromDBObject(pid) : null;
+    }    
 }

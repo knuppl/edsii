@@ -5,12 +5,16 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
-import cadastroPidRoutes from './routes/cadastroPidRoutes'; // Importando as rotas do PID
+import cadastroPidRoutes from './routes/cadastroPidRoutes'
 import session from 'express-session'; // Para gerenciar a sessão do usuário
 import cadastroDocenteRoutes from './routes/cadastroDocenteRoutes';
+import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
+
 
 const exphbs = require('express-handlebars');
 const app: Express = express(); // Define o tipo da variável app como Express
+
 
 // Configuração do Handlebars
 const hbs = exphbs.create({
@@ -29,7 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 // Middlewares
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Configuração da sessão
@@ -39,6 +43,13 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false } // Defina como true se estiver usando HTTPS
 }));
+
+// Middleware para tornar a sessão disponível em todas as views
+app.use((req, res, next) => {
+  res.locals.docente = (req.session as any).docente; // Tornando o docente disponível na view
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas
@@ -50,6 +61,10 @@ app.use('/docente', cadastroDocenteRoutes); // Usando as rotas de cadastro de do
 // Rota para renderizar o formulário de cadastro de PID
 app.get('/cadastrarPid', (req: Request, res: Response) => {
   res.render('cadastrarPid');
+});
+
+app.get('/cadastrarRid', (req: Request, res: Response) => {
+  res.render('cadastrarRid');
 });
 
 
