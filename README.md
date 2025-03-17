@@ -76,7 +76,7 @@ Este comando irá rodar todos os testes e gerar um relatório de cobertura, que 
 
 ## Contato
 André Knupp - andreklacerda@proton.me
-Gustavo Júlio - gsutavo-julio@live.com
+Gustavo Júlio - gustavo-julio@live.com
 
 
 
