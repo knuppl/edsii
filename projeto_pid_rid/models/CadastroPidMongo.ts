@@ -68,16 +68,22 @@ export class CadastroPidMongo {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
 
-        // Converte os dados parciais para um objeto que o MongoDB pode entender
-        const updateData = {
-            ...(dados.getDocenteId && { docenteId: dados.getDocenteId() }),
-            ...(dados.getAno && { ano: dados.getAno() }),
-            ...(dados.getSemestre && { semestre: dados.getSemestre() }),
-            ...(dados.getAtividades && { atividades: dados.getAtividades() }),
-            ...(dados.getObservacao && { observacao: dados.getObservacao() }), // Adicionando a observação
-        };
+        const updateData: any = {};
 
-        await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });
+        if (dados.getDocenteId) updateData.docenteId = dados.getDocenteId();
+        if (dados.getAno) updateData.ano = dados.getAno();
+        if (dados.getSemestre) updateData.semestre = dados.getSemestre();
+        if (dados.getObservacao) updateData.observacao = dados.getObservacao();
+        
+        // Aqui garantimos que as atividades sejam sobrescritas, e não acumuladas
+        if (dados.getAtividades) {
+            updateData.atividades = dados.getAtividades(); 
+        }
+    
+        await collection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: updateData } // Certifica que o array de atividades será substituído
+        );
     }
 
     async deleta(id: string): Promise<void> {
@@ -107,12 +113,14 @@ export class CadastroPidMongo {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
     
+        // Certifique-se de que os parâmetros são do tipo esperado
         const pid = await collection.findOne({
             docenteId: docenteEmail,
-            ano: ano,
-            semestre: semestre
+            ano: Number(ano), // Garantindo que o ano seja número
+            semestre: Number(semestre), // Garantindo que o semestre seja número
         });
     
+        // Se encontrado, mapeie para o objeto de domínio
         return pid ? CadastroPidMongo.fromDBObject(pid) : null;
-    }    
+    }
 }

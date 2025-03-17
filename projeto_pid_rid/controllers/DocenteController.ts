@@ -57,9 +57,11 @@ class DocenteController {
             email: docente.getEmail(),
           };
           res.redirect(`/docente/pids?docenteEmail=${docente.getEmail()}`);
+        } else {
+            return res.render('index', { errorMessage: 'Credenciais inválidas!'});
         }
         } else {
-          return res.status(401).send('Credenciais inválidas');
+          return res.render('index', { errorMessage: 'Credenciais inválidas!'});
         }
       }  
 

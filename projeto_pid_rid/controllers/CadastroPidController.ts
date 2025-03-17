@@ -52,7 +52,6 @@ class CadastroPidController {
             console.log('PID salvo com sucesso!');
     
             (req.session as any).successMessage = "PID CADASTRADO COM SUCESSO!";
-    
             res.redirect('/docente/pids');
         } catch (error) {
             console.error(error);
@@ -121,7 +120,6 @@ class CadastroPidController {
         }
     }
 
-    
 
     async editar(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
@@ -151,38 +149,57 @@ class CadastroPidController {
         }
     }
 
-async atualizar(req: Request, res: Response): Promise<void> {
-    const { id, docenteId, ano, semestre, atividades, observacao } = req.body;
-
-    console.log('Dados recebidos:', { id, docenteId, ano, semestre, atividades, observacao }); // Log para depuração
-
-    try {
-        const cadastroPidMongo = new CadastroPidMongo();
-        const pid = new CadastroPid();
+    async atualizar(req: Request, res: Response): Promise<void> {
+        const { id, docenteId, ano, semestre, atividades, observacao } = req.body;
         
-        pid.setAno(Number(ano)); // Converte para número
-        pid.setSemestre(Number(semestre)); // Converte para número
-        pid.setDocenteId(docenteId)
+        try {
+            const cadastroPidMongo = new CadastroPidMongo();
+            const docenteMongo = new DocenteMongo();
+            const docente = await docenteMongo.consultaPorUsuario(docenteId);
+    
+            if (!docente) {
+                return res.render('error', { message: 'Docente não encontrado.' });
+            }
+    
+            const regimeDeTrabalho = Number(docente.getRegimeTrabalho()); // Garantindo que é número
 
-        // Processa as atividades
-        const atividadesProcessadas = Object.values(atividades).map((atividade: any) => ({
-            tipo: atividade.tipo,
-            descricao: atividade.descricao,
-            cargaHoraria: Number(atividade.cargaHoraria), // Converte para número
-        }));
-
-        pid.setAtividades(atividadesProcessadas); // Passando as atividades processadas
-        pid.setObservacao(observacao);
-
-        // Atualizando o PID no banco
-        await cadastroPidMongo.atualiza(id, pid);
-
-        res.redirect('/projeto_pid_rid/pids-rids'); // Redireciona após atualização
-    } catch (error) {
-        console.error(error);
-        res.render('error', { message: 'Erro ao atualizar o PID.' });
-    }
-}
+            // Processar atividades
+            const atividadesProcessadas = Object.values(atividades).map((atividade: any) => ({
+                tipo: atividade.tipo,
+                descricao: atividade.descricao,
+                cargaHoraria: Number(atividade.cargaHoraria) || 0,
+            }));
+    
+            // Verificar carga horária total
+            const cargaHorariaTotal = atividadesProcessadas.reduce((total, atividade) => total + atividade.cargaHoraria, 0);
+    
+            if (cargaHorariaTotal !== regimeDeTrabalho) {
+                return res.render('index', {
+                    errorMessage: `A carga horária das atividades (${cargaHorariaTotal} horas) deve ser igual ao regime de trabalho do docente (${regimeDeTrabalho} horas).`,                    id,
+                    docenteId,
+                    ano,
+                    semestre,
+                    atividades: atividadesProcessadas,
+                    observacao
+                }); 
+            }
+    
+            // Criar e atualizar PID
+            const pid = new CadastroPid();
+            pid.setAno(Number(ano));
+            pid.setSemestre(Number(semestre));
+            pid.setDocenteId(docenteId);
+            pid.setAtividades(atividadesProcessadas);
+            pid.setObservacao(observacao);
+    
+            await cadastroPidMongo.atualiza(id, pid);
+    
+            res.redirect('/projeto_pid_rid/pids-rids'); // Redireciona após atualização
+        } catch (error) {
+            console.error(error);
+            res.render('error', { message: 'Erro ao atualizar o PID.' });
+        }
+    }    
 
 async visualizar(req: Request, res: Response): Promise<void> {
     const id = req.params.id;

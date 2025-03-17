@@ -141,30 +141,53 @@ class CadastroRidController {
         }
     }
 
-  async atualizar(req: Request, res: Response): Promise<void> {
+async atualizar(req: Request, res: Response): Promise<void> {
     const { id, docenteId, ano, semestre, atividades, observacao } = req.body;
-
-    console.log('Dados recebidos:', { id, docenteId, ano, semestre, atividades, observacao }); // Log para depuração
 
     try {
         const cadastroRidMongo = new CadastroRidMongo();
-        const rid = new CadastroRid();
-        
-        rid.setAno(Number(ano)); // Converte para número
-        rid.setSemestre(Number(semestre)); // Converte para número
-        rid.setDocenteId(docenteId)
+        const docenteMongo = new DocenteMongo();
+        const docente = await docenteMongo.consultaPorUsuario(docenteId);
 
-        // Processa as atividades
+        if (!docente) {
+            return res.render('error', { message: 'Docente não encontrado.' });
+        }
+
+        const regimeDeTrabalho = Number(docente.getRegimeTrabalho()); // Garantindo que é número
+
+        // Processar atividades e garantir que a carga horária seja numérica
         const atividadesProcessadas = Object.values(atividades).map((atividade: any) => ({
             tipo: atividade.tipo,
             descricao: atividade.descricao,
-            cargaHoraria: Number(atividade.cargaHoraria), // Converte para número
+            cargaHoraria: Number(atividade.cargaHoraria) || 0, // Garante que valores inválidos virem 0
         }));
 
-        rid.setAtividades(atividadesProcessadas); // Passando as atividades processadas
+        // Calcular carga horária total
+        const cargaHorariaTotal = atividadesProcessadas.reduce((total, atividade) => total + atividade.cargaHoraria, 0);
+
+        console.log(`Carga Horária Total: ${cargaHorariaTotal}, Regime de Trabalho: ${regimeDeTrabalho}`);
+
+        // Verificar se a carga horária bate com o regime de trabalho do docente
+        if (cargaHorariaTotal !== regimeDeTrabalho) {
+            return res.render('index', {
+                errorMessage: `A carga horária das atividades (${cargaHorariaTotal} horas) deve ser igual ao regime de trabalho do docente (${regimeDeTrabalho} horas).`,
+                id,
+                docenteId,
+                ano,
+                semestre,
+                atividades: atividadesProcessadas,
+                observacao
+            });
+        }
+
+        // Criar e atualizar RID
+        const rid = new CadastroRid();
+        rid.setAno(Number(ano));
+        rid.setSemestre(Number(semestre));
+        rid.setDocenteId(docenteId);
+        rid.setAtividades(atividadesProcessadas);
         rid.setObservacao(observacao);
 
-        // Atualizando o RID no banco
         await cadastroRidMongo.atualiza(id, rid);
 
         res.redirect('/projeto_pid_rid/pids-rids'); // Redireciona após atualização

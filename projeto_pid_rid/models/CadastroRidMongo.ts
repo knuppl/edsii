@@ -29,45 +29,28 @@ export class CadastroRidMongo {
     }
 
     private static async compararAtividades(pidDocenteId: string, rid: CadastroRid): Promise<void> {
-
         const pidMongo = new CadastroPidMongo();
-    
+        console.log(`Buscando PID para o docenteId: ${pidDocenteId}, ano: ${rid.getAno()}, semestre: ${rid.getSemestre()}`);  // Log
         const pid = await pidMongo.buscarPid(pidDocenteId, rid.getAno(), rid.getSemestre());
     
-    
         if (!pid) {
-    
+            console.error("PID não encontrado!"); // Log se o PID não for encontrado
             throw new Error("Cadastre o PID antes de cadastrar o RID!");
-    
         } else {
-    
+            console.log("PID encontrado", pid); // Log do PID encontrado
             const atividadesIguais = pid.getAtividades().every((pidAtividade: any, index: number) => {
-    
                 const ridAtividade = rid.getAtividades()[index];
-    
                 return pidAtividade.tipo === ridAtividade.tipo &&
-    
                     pidAtividade.descricao === ridAtividade.descricao &&
-    
                     pidAtividade.cargaHoraria === ridAtividade.cargaHoraria;
-    
-            });
-    
-    
+            });    
     
             // Se as atividades forem diferentes, é necessário observar
-    
             if (!atividadesIguais && !rid.getObservacao()) {
-    
                 throw new Error('Observação não pode estar vazia se as atividades forem diferentes.');
-    
             }
-    
         }
-    
     }
-    
-    
 
     // Criação do RID
     async cria(rid: CadastroRid): Promise<void> {
@@ -93,7 +76,7 @@ export class CadastroRidMongo {
             await collection.insertOne(CadastroRidMongo.toDBObject(rid));
     
         } catch (error: any) {
-            window.alert(error.message);
+            throw new Error(`Erro no cadastro do RID: ${error.message}`);
         }
     }
 
@@ -117,16 +100,23 @@ export class CadastroRidMongo {
     async atualiza(id: string, dados: Partial<CadastroRid>): Promise<void> {
         const db = await connectDB();
         const collection = db.collection(this.collectionName);
-
-        const updateData = {
-            ...(dados.getDocenteId && { docenteId: dados.getDocenteId() }),
-            ...(dados.getAno && { ano: dados.getAno() }),
-            ...(dados.getSemestre && { semestre: dados.getSemestre() }),
-            ...(dados.getAtividades && { atividades: dados.getAtividades() }),
-            ...(dados.getObservacao && { observacao: dados.getObservacao() }),
-        };
-
-        await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });
+    
+        const updateData: any = {};
+    
+        if (dados.getDocenteId) updateData.docenteId = dados.getDocenteId();
+        if (dados.getAno) updateData.ano = dados.getAno();
+        if (dados.getSemestre) updateData.semestre = dados.getSemestre();
+        if (dados.getObservacao) updateData.observacao = dados.getObservacao();
+        
+        // Aqui garantimos que as atividades sejam sobrescritas, e não acumuladas
+        if (dados.getAtividades) {
+            updateData.atividades = dados.getAtividades(); 
+        }
+    
+        await collection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: updateData } // Certifica que o array de atividades será substituído
+        );
     }
 
     // Deletar RID

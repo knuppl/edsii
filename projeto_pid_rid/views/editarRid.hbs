@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
+{{#if errorMessage}}
+    <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+    </div>
+{{/if}}
+
+{{#if message}}
+    <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+    </div>
+{{/if}}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
